@@ -1,7 +1,7 @@
 /**
  *	@initialization Namespaces
 **/
-OrbitNote = {
+GeoStore = {
 	core : {
 		service : {}, workflow : {}, helper : {}, constant : {}, template : {}
 	}
@@ -10,7 +10,7 @@ OrbitNote = {
 /**
  *	@initialization Session variables
 **/
-OrbitNote.session = {
+GeoStore.session = {
 	user : false,
 	pass : false
 };
@@ -18,7 +18,7 @@ OrbitNote.session = {
 /**
  *	@initialization UI data
 **/
-OrbitNote.data = {
+GeoStore.data = {
 	launch : []
 };
 
@@ -27,21 +27,21 @@ OrbitNote.data = {
  *	@desc HTML content to show while loading content (default '<p class="loading">Loading ...</p>')
  *
 **/
-OrbitNote.core.constant.loadmsg = '<p class="loading">Loading ...</p>';
+GeoStore.core.constant.loadmsg = '<p class="loading">Loading ...</p>';
 
 /**
  *	@constant successmsg
  *	@desc HTML content to indicate successful execution (default '<img src="ui/img/icons/ok.gif">')
  *
 **/
-OrbitNote.core.constant.successimg = '<img src="ui/img/icons/ok.gif">';
+GeoStore.core.constant.successimg = '<img src="ui/img/icons/ok.gif">';
 
 /**
  *	@constant errormsg
  *	@desc HTML content to indicate erroneous execution (default '<img src="ui/img/icons/error.gif">')
  *
 **/
-OrbitNote.core.constant.errorimg = '<img src="ui/img/icons/error.gif">';
+GeoStore.core.constant.errorimg = '<img src="ui/img/icons/error.gif">';
 
 var CKEDITOR_BASEPATH = 'ui/js/ckeditor/';
 
@@ -56,7 +56,7 @@ FireSpark.smart.constant.moveduration = 1000;
 
 
 /**
- *	@initialization Snowblozm and OrbitNote
+ *	@initialization Snowblozm and GeoStore
 **/
 $(document).ready(function(){
 	Snowblozm.Registry.add('#tab', FireSpark.smart.workflow.InterfaceTab);
@@ -114,8 +114,8 @@ $(document).ready(function(){
 		total : 1
 	});*/
 	
-	for(var $i in OrbitNote.data.launch){
-		Snowblozm.Kernel.launch(OrbitNote.data.launch[$i]);
+	for(var $i in GeoStore.data.launch){
+		Snowblozm.Kernel.launch(GeoStore.data.launch[$i]);
 	}
 	
 	/**
@@ -135,8 +135,8 @@ $(document).ready(function(){
 	/**
 	 *	@server loads
 	**
-	OrbitNote.core.helper.serverTime($('#server-time'), 'ui/php/time.php');
-	OrbitNote.core.helper.serverPortal($('#server-portal'), 'ui/php/portal.php');
+	GeoStore.core.helper.serverTime($('#server-time'), 'ui/php/time.php');
+	GeoStore.core.helper.serverPortal($('#server-portal'), 'ui/php/portal.php');
 	
 	/**
 	 *	@scroll top
