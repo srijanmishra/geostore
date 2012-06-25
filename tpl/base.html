@@ -12,41 +12,28 @@
 	</head>
 
 	<body>
-		<span id="load-status">Loading GeoStore ...</span>
+		<span id="load-status"><span class="state loading">Loading GeoStore ...</span></span>
 		
-		<div id="orbitwindow">
-			<div id="orbithead">
-				<div id="orbitlogo">
+		<div id="geowindow">
+			<div id="geohead">
+				<div id="geologo">
 					<a href="/" title="GeoStore Home"><img src="/ui/img/geostore/logo.png" alt="GeoStore Logo" /></a>
 				</div>
 			</div>
 			
-			<div id="orbitbar"><div id="orbitbar-wrap">	
-				<div id="explore" class="fence">
-					<div class="menutitle">Explore</div>
-					<div id="explore-icons">
-						<a href="/explore/courses/" class="medicon fleft"><img src="/ui/img/geostore/courses.png" alt="" /><br />Courses</a>
-						<a href="/explore/classes/" class="medicon fleft"><img src="/ui/img/geostore/classes.png" alt="" /><br />Classes</a>
-						<a href="/explore/tools/" class="medicon fleft"><img src="/ui/img/geostore/tools.png" alt="" /><br />Tools</a>
-					</div>
-					<div class="clearfloat"></div>
-					
-					<div id="search">
-						<div id="search-panel" class="panel">
-							<form action="/search/" method="post" class="" id="_write:sel._search-panel">
-								{% csrf_token %}
-								<input type="text" name="query" placeholder="Search ..." class="data fence fleft"/>
-								<button type="submit" class="fleft minibutton" title="Search"><img src="/ui/img/icons/search.png" alt="Search" /></button>
-								<span class="status"></span>
-							</form>
-							<div class="clearfloat"></div>
-						</div>
-					</div>
-				</div>
-				
-				
+			<div id="geobar"><div id="geobar-wrap">	
 				{% if user.is_authenticated %}
-					
+					{% block geobar %}{% endblock %}
+				{% endif %}
+			</div></div>
+			
+			<div id="geotitle">
+				<p>{% block geotitle %}{% endblock %}</p>
+			</div>
+			
+			<div id="geopage">
+				{% if user.is_authenticated %}
+					{% block geopage %}{% endblock %}
 				{% else %}
 				<div id="account" class="fence">
 					<div class="menutitle">Account</div>
@@ -73,139 +60,14 @@
 					</div>
 				</div>
 				{% endif %}
-				
-				
-				<div id="footer">
-					<p><strong>GeoStore &copy; 2012</strong></p>
-					<p><a href="/info/about/">About</a> &middot; <a href="/info/faq/">FAQ</a> &middot; <a href="/info/testimonials/">Testimonials</a> &middot; <a href="/info/terms/">Terms</a> &middot; <a href="/info/support/">Help</a></p>
-				</div>
-			</div></div>
+			</div>
 			
-			<div id="orbitpage">Krishna</div>
+			<div id="geofooter">
+				<p><strong>GeoStore &copy; 2012</strong></p>
+				<p><a href="/info/about/">About</a> &middot; <a href="/info/faq/">FAQ</a> &middot; <a href="/info/terms/">Terms</a> &middot; <a href="/info/support/">Help</a></p>
+			</div>
 		</div>
 		
 		<div id="ui-imports"></div>
-		
-		
-		<!--
-		<table id="head-table" class="layout full"><tbody>
-			<tr><td style="width: 200px; text-align: center;" rowspan="2">
-				
-			</td><td id="header-container">
-					
-					
-					<div id="minimenu" class="fleft topmenu">
-						<ul class="hover-menu vertical">
-							<li>
-								<a href="/" title="Home"><img src="/ui/img/geostore/icon.png" alt="HOME" /></a>
-							</li>
-							<li>
-								<a href="/notemail/" title="Notemail"><img src="/ui/img/notemail/icon.png" alt="NOTEMAIL" /></a>
-								<ul class="hover-block">
-									<li><a href="info/why-at-itbhu/#!/view/#adv-itbhu/" class="ui">IT BHU Advantage</a></li>
-									<li><a href="info/why-at-itbhu/#!/view/#adv-alumni/" class="ui">Alumni</a></li>
-									<li><a href="info/why-at-itbhu/#!/view/#adv-facilities/" class="ui">Facilities</a></li>
-								</ul>
-							</li>
-						</ul>
-					</div>
-					
-					<div id="state-container" class="fright">
-						Krishna
-					</div>
-			</td></tr><tr><td id="subheader-container">
-					<div id="headmenu">Krishna</div>
-			</td></tr>
-		</tbody></table>
-		
-		
-		<div>
-			<div class="fleft"></div>
-			<div class="header">
-				<div>
-					<p class="headtitle fleft">GeoStore Collaboration Services</p>
-					<div class="mainmenu fright">
-						<ul class="hover-menu vertical">
-							<li>
-								<a href="{{ DESK }}/">Home</a>
-							</li>
-							<li>
-								<a href="{{ DESK }}/instructions/">Instructions</a>
-							</li>
-							<li>
-								<a href="{{ DESK }}/faq/">FAQ</a>
-							</li>
-							<li>
-								<a href="{{ DESK }}/testimonials/">Testimonials</a>
-							</li>
-							<li>
-								<a href="{{ DESK }}/about-us/">About Us</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-				<div style="line-height:1px;">&nbsp;</div>
-				<div>
-					<div class="statemenu fleft">
-						<ul class="hover-menu vertical">
-							<li>
-								<a href="home/" class="minitile" style="background-image: url('ui/img/geostore/icon.png')">Home</a>
-							</li>
-							{% block deskmenu %}{% endblock %}
-						</ul>
-					</div>
-					<div class="statemenu fright">
-						{% block statemenu %}{% endblock %}
-					</div>
-				</div>
-			</div>
-			<div class="clearfloat"></div>
-		</div>
-
-		<div id="board">
-			<div id="ui-global-0">
-				<div class="tiles tilemenu azure-left">
-					{% block tiles0 %}{% endblock %}
-				</div>
-				<div class="lists listmenu azure-right">
-					{% block tiles1 %}{% endblock %}
-				</div>
-				<div id="main-container" class="bands container azure-center">
-					{% block html %}{% endblock %}
-				</div>
-				<div class="clearfloat"></div>
-			</div>
-		</div>
-		
-		<div class="footer align-center">
-			<p class="fleft">GeoStore &copy; 2012</p>
-			<div class="footmenu tiles fright">
-				<ul class="hover-menu vertical">
-					<li>
-						<a href="#" >Help</a>
-					</li>
-					<li>
-						<a href="#">Privacy</a>
-					</li>
-					<li>
-						<a href="#">Terms</a>
-					</li>
-					<li>
-						<a href="#">Advertising</a>
-					</li>
-					<!--<li>
-						<a href="#">Tools</a>
-					</li>
-					<li>
-						<a href="#">Mobile</a>
-					</li>
-					<li>
-						<a href="#">Developer</a>
-					</li>--
-				</ul>
-			</div>
-			<div class="clearfloat"></div>
-		</div>
-		-->
 	</body>
 </html>

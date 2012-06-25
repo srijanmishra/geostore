@@ -1,15 +1,20 @@
 /* main layout */
-#orbitwindow { position: absolute; }
-#orbithead { position: absolute; top:0px; left: 0px; width: 285px; } 
-#orbitbar { position: absolute; top:150px; left: 0px; right: 305px; bottom: 0px; } 
-#orbitpage { position: absolute; top:0px; left: 305px; right: 0px; bottom: 0px; }
+#geowindow { position: absolute; height: 100%; }
+#geohead { position: fixed; top:0px; left: 0px; width: 285px; } 
+#geobar { position: fixed; top:170px; left: 0px; right: 285px; bottom: 50px; } 
+#geotitle { position: fixed; top:0px; left: 285px; right: 0px;
+				font-family: "Segoi UI Light", sans-serif; font-size: 40px; padding: 8px; border-bottom: 1px solid #CCC; }
+#geopage { position: fixed; top: 65px; left: 285px; right: 0px; bottom: 50px; }
+#geofooter { position: fixed; left:0; bottom: 0; right: 0; padding: 5px 5px 15px; font-size: 11px; text-align: center; }
 
-#orbitlogo { text-align: center; }
+#geologo { text-align: center; }
 
-/* orbitbar styles */
-#orbitbar { width: 302px; overflow: hidden; }
-#orbitbar:hover { overflow: auto; }
-#orbitbar-wrap { width: 285px; }
+/* geobar styles */
+#geobar { width: 282px; overflow: hidden; }
+#geobar:hover { overflow: auto; }
+#geobar-wrap { width: 265px; }
+
+#geopage { overflow: auto; }
 
 /* general styles */
 .fence { border: solid 1px #DDD; border-radius: 3px 3px 3px 3px; -moz-border-radius: 3px 3px 3px 3px; -webkit-border-radius: 3px 3px 3px 3px; }
@@ -32,8 +37,6 @@
 
 /* sections style */
 #explore { margin: 5px 15px 15px; }
-#account { margin: 15px; padding-left: 3px; }
+#account { margin: 25px auto; padding-left: 3px; width: 300px; }
 #explore-icons { margin: 8px 0; text-align: center; overflow: auto; }
 
-/* footer styles */
-#footer { margin: 15px; font-size: 11px; }
