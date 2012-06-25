@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link rel='shortcut icon' href="/ui/img/orbitnote/icon.png"/>
+		<title>{% block title %}{% endblock %} - OrbitNote</title>
+		
+		<link rel="stylesheet" type="text/css" href="/ui/css/orbitnote-ui.css" />
+		<!--<link rel="stylesheet" type="text/css" href="ui/css/jquery.jtweetsanywhere-1.3.1.css" />-->
+		
+		<script charset="utf-8" type="text/javascript" src="/ui/js/orbitnote-ui.js"></script>
+	</head>
+
+	<body>
+		<span id="load-status">Loading OrbitNote ...</span>
+		
+		<div id="orbitwindow">
+			<div id="orbithead">
+				<div id="orbitlogo">
+					<a href="/" title="OrbitNote Home"><img src="/ui/img/orbitnote/logo.png" alt="OrbitNote Logo" /></a>
+				</div>
+			</div>
+			
+			<div id="orbitbar"><div id="orbitbar-wrap">	
+				<div id="explore" class="fence">
+					<div class="menutitle">Explore</div>
+					<div id="explore-icons">
+						<a href="/explore/courses/" class="medicon fleft"><img src="/ui/img/orbitnote/courses.png" alt="" /><br />Courses</a>
+						<a href="/explore/classes/" class="medicon fleft"><img src="/ui/img/orbitnote/classes.png" alt="" /><br />Classes</a>
+						<a href="/explore/tools/" class="medicon fleft"><img src="/ui/img/orbitnote/tools.png" alt="" /><br />Tools</a>
+					</div>
+					<div class="clearfloat"></div>
+					
+					<div id="search">
+						<div id="search-panel" class="panel">
+							<form action="/search/" method="post" class="" id="_write:sel._search-panel">
+								{% csrf_token %}
+								<input type="text" name="query" placeholder="Search ..." class="data fence fleft"/>
+								<button type="submit" class="fleft minibutton" title="Search"><img src="/ui/img/icons/search.png" alt="Search" /></button>
+								<span class="status"></span>
+							</form>
+							<div class="clearfloat"></div>
+						</div>
+					</div>
+				</div>
+				
+				
+				{% if user.is_authenticated %}
+					
+				{% else %}
+				<div id="account" class="fence">
+					<div class="menutitle">Account</div>
+					<div id="login-panel" class="panel">
+						<form action="/login/" method="post" class="" id="_write:sel._login-panel:ln._login">
+							{% csrf_token %}
+							<input type="hidden" name="service" value="session" />
+							<input type="hidden" name="next" value="{% if next %}{{ next }}{% else %}{{ request.path }}{% endif %}" />
+							{% if request.POST.login and form.errors %}
+								<p>{{ form.errors }}</p>
+							{% endif %}
+							<table class="formtable left part15"><tbody>									
+								<tr><td>Username</td>
+								<td><input type="text" name="username" class="required srnd" value="{{ request.POST.username }}"/><span class="error hidden">Invalid Username</span></td></tr>
+								<tr><td>Password</td>
+								<td><input type="password" name="password" class="required srnd" /><span class="error hidden">Invalid Password</span></td></tr>
+								<tr><td colspan="2" style="text-align: center !important; padding: 5px;">
+									<a href="/account/password/" class="button">Forgot Password ?</a>&nbsp;
+									<input name="login" type="submit" value="Sign In" class="button"/>
+									<!--<input name="reset" type="reset" value="Reset" class="button"/>-->
+								</td></tr>
+							</tbody></table>
+						</form>
+					</div>
+				</div>
+				{% endif %}
+				
+				
+				<div id="footer">
+					<p><strong>OrbitNote &copy; 2012</strong></p>
+					<p><a href="/info/about/">About</a> &middot; <a href="/info/faq/">FAQ</a> &middot; <a href="/info/testimonials/">Testimonials</a> &middot; <a href="/info/terms/">Terms</a> &middot; <a href="/info/support/">Help</a></p>
+				</div>
+			</div></div>
+			
+			<div id="orbitpage">Krishna</div>
+		</div>
+		
+		<div id="ui-imports"></div>
+		
+		
+		<!--
+		<table id="head-table" class="layout full"><tbody>
+			<tr><td style="width: 200px; text-align: center;" rowspan="2">
+				
+			</td><td id="header-container">
+					
+					
+					<div id="minimenu" class="fleft topmenu">
+						<ul class="hover-menu vertical">
+							<li>
+								<a href="/" title="Home"><img src="/ui/img/orbitnote/icon.png" alt="HOME" /></a>
+							</li>
+							<li>
+								<a href="/notemail/" title="Notemail"><img src="/ui/img/notemail/icon.png" alt="NOTEMAIL" /></a>
+								<ul class="hover-block">
+									<li><a href="info/why-at-itbhu/#!/view/#adv-itbhu/" class="ui">IT BHU Advantage</a></li>
+									<li><a href="info/why-at-itbhu/#!/view/#adv-alumni/" class="ui">Alumni</a></li>
+									<li><a href="info/why-at-itbhu/#!/view/#adv-facilities/" class="ui">Facilities</a></li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+					
+					<div id="state-container" class="fright">
+						Krishna
+					</div>
+			</td></tr><tr><td id="subheader-container">
+					<div id="headmenu">Krishna</div>
+			</td></tr>
+		</tbody></table>
+		
+		
+		<div>
+			<div class="fleft"></div>
+			<div class="header">
+				<div>
+					<p class="headtitle fleft">OrbitNote Collaboration Services</p>
+					<div class="mainmenu fright">
+						<ul class="hover-menu vertical">
+							<li>
+								<a href="{{ DESK }}/">Home</a>
+							</li>
+							<li>
+								<a href="{{ DESK }}/instructions/">Instructions</a>
+							</li>
+							<li>
+								<a href="{{ DESK }}/faq/">FAQ</a>
+							</li>
+							<li>
+								<a href="{{ DESK }}/testimonials/">Testimonials</a>
+							</li>
+							<li>
+								<a href="{{ DESK }}/about-us/">About Us</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div style="line-height:1px;">&nbsp;</div>
+				<div>
+					<div class="statemenu fleft">
+						<ul class="hover-menu vertical">
+							<li>
+								<a href="home/" class="minitile" style="background-image: url('ui/img/orbitnote/icon.png')">Home</a>
+							</li>
+							{% block deskmenu %}{% endblock %}
+						</ul>
+					</div>
+					<div class="statemenu fright">
+						{% block statemenu %}{% endblock %}
+					</div>
+				</div>
+			</div>
+			<div class="clearfloat"></div>
+		</div>
+
+		<div id="board">
+			<div id="ui-global-0">
+				<div class="tiles tilemenu azure-left">
+					{% block tiles0 %}{% endblock %}
+				</div>
+				<div class="lists listmenu azure-right">
+					{% block tiles1 %}{% endblock %}
+				</div>
+				<div id="main-container" class="bands container azure-center">
+					{% block html %}{% endblock %}
+				</div>
+				<div class="clearfloat"></div>
+			</div>
+		</div>
+		
+		<div class="footer align-center">
+			<p class="fleft">OrbitNote &copy; 2012</p>
+			<div class="footmenu tiles fright">
+				<ul class="hover-menu vertical">
+					<li>
+						<a href="#" >Help</a>
+					</li>
+					<li>
+						<a href="#">Privacy</a>
+					</li>
+					<li>
+						<a href="#">Terms</a>
+					</li>
+					<li>
+						<a href="#">Advertising</a>
+					</li>
+					<!--<li>
+						<a href="#">Tools</a>
+					</li>
+					<li>
+						<a href="#">Mobile</a>
+					</li>
+					<li>
+						<a href="#">Developer</a>
+					</li>--
+				</ul>
+			</div>
+			<div class="clearfloat"></div>
+		</div>
+		-->
+	</body>
+</html>

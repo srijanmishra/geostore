@@ -1,0 +1,11 @@
+/* thumb styles */
+.thumb { max-width: 100%; }
+.thumb.mini { max-height: 15px; }
+.thumb.hgt10em { max-height:10em; }
+
+/* tile styles */
+.tile { background-size: 20px 20px; background-repeat: no-repeat; background-position: 8% 50%; background-color: transparent; padding-left: 30px !important; }
+.minitile { background-size: 30px 30px; background-repeat: no-repeat; background-position: 8% 50%; background-color: transparent; padding-left: 45px !important; }
+.midtile { background-size: 30px 30px; background-repeat: no-repeat; background-position: 100% 8%; background-color: transparent; padding-top: 32px !important; display:block; }
+.bigtile { background-size: 50px 50px; background-repeat: no-repeat; background-position: 100% 8%; background-color: transparent; padding-top: 52px !important; display:block; }
+.tile-content { display: none; }

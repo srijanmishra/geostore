@@ -1,0 +1,39 @@
+/* main layout */
+#orbitwindow { position: absolute; }
+#orbithead { position: absolute; top:0px; left: 0px; width: 285px; } 
+#orbitbar { position: absolute; top:150px; left: 0px; right: 305px; bottom: 0px; } 
+#orbitpage { position: absolute; top:0px; left: 305px; right: 0px; bottom: 0px; }
+
+#orbitlogo { text-align: center; }
+
+/* orbitbar styles */
+#orbitbar { width: 302px; overflow: hidden; }
+#orbitbar:hover { overflow: auto; }
+#orbitbar-wrap { width: 285px; }
+
+/* general styles */
+.fence { border: solid 1px #DDD; border-radius: 3px 3px 3px 3px; -moz-border-radius: 3px 3px 3px 3px; -webkit-border-radius: 3px 3px 3px 3px; }
+.section { margin: 15px; }
+.menutitle { font-family: "Segoi UI Light", sans-serif; font-size: 18px; padding: 8px; border-bottom: 1px dashed #CCC; }
+
+/* search bar */
+#search { margin: 8px; }
+#search input[type=text] { padding: 5px;  display: block; margin: 0px;  width: 189px; }
+
+/* minibutton styles */
+.minibutton { border: solid 1px #FFF; background: white; margin: 0 0 0 5px; padding: 1px; border-radius: 3px 3px 3px 3px; -moz-border-radius: 3px 3px 3px 3px; -webkit-border-radius: 3px 3px 3px 3px; }
+.minibutton:hover { border-color: #CCC; }
+.minibutton img { height: 21px; }
+
+/* medicon styles */
+.medicon { text-align: center; width: 50px; height: 50px; border: solid 1px #FFF; border-radius: 3px 3px 3px 3px; -moz-border-radius: 3px 3px 3px 3px; -webkit-border-radius: 3px 3px 3px 3px; display: block; padding: 5px; margin-left: 8px; }
+.medicon:hover { border: solid 1px #CCC; }
+.medicon img { height: 30px; padding-bottom: 5px; }
+
+/* sections style */
+#explore { margin: 5px 15px 15px; }
+#account { margin: 15px; padding-left: 3px; }
+#explore-icons { margin: 8px 0; text-align: center; overflow: auto; }
+
+/* footer styles */
+#footer { margin: 15px; font-size: 11px; }

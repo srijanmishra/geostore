@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}OrbitNote Demo{% endblock %}
+
+{% block content %}
+{% if text %}
+	<p>Welcome to {{ text }}.</p>
+{% else %}
+	<p>Welcome.</p>
+{% endif %}
+{% endblock %}
