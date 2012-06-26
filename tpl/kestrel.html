@@ -27,7 +27,7 @@
 			{% else %}
 				<li>
 					<input type="hidden" name="navigator" value="#/html/" />
-					<input type="hidden" name="url" value="/account/register.html" />
+					<input type="hidden" name="url" value="/account/register.html/" />
 					<input type="hidden" name="cntr" value="#kestrelbase" />
 					<a href="/account/register/" class="collect">Register</a>
 				</li>
@@ -43,17 +43,20 @@
 	{% block kestrelmenu %}
 	<ul class="hover-menu vertical fleft">
 		<li>
-			<a href="/" >Home</a>
+			<input type="hidden" name="navigator" value="#/html/" />
+			<input type="hidden" name="url" value="/page/home.html/" />
+			<input type="hidden" name="cntr" value="#kestrelbase" />
+			<a href="/" class="collect">Home</a>
 		</li>
 		<li>
 			<input type="hidden" name="navigator" value="#/html/" />
-			<input type="hidden" name="url" value="/info/about.html" />
+			<input type="hidden" name="url" value="/info/about.html/" />
 			<input type="hidden" name="cntr" value="#kestrelbase" />
 			<a href="/info/about/" class="collect">About</a>
 		</li>
 		<li>
 			<input type="hidden" name="navigator" value="#/html/" />
-			<input type="hidden" name="url" value="/info/faq.html" />
+			<input type="hidden" name="url" value="/info/faq.html/" />
 			<input type="hidden" name="cntr" value="#kestrelbase" />
 			<a href="/info/faq/" class="collect">FAQ</a>
 		</li>
@@ -62,7 +65,7 @@
 	<ul class="hover-menu vertical fright">
 		<li>
 			<input type="hidden" name="navigator" value="#/html/" />
-			<input type="hidden" name="url" value="/info/support.html" />
+			<input type="hidden" name="url" value="/info/support.html/" />
 			<input type="hidden" name="cntr" value="#kestrelbase" />
 			<a href="/info/support/" class="collect">Help</a>
 		</li>

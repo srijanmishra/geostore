@@ -78,6 +78,7 @@ $(document).ready(function(){
 		selector : 'a.collect',
 		event : 'click',
 		attribute : 'href',
+		nav : true
 	},{
 		service : FireSpark.smart.service.InterfaceTrigger,
 		selector : 'a.navigate',
