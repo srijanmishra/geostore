@@ -1,0 +1,92 @@
+{% comment %}
+	Kestrel UI base template 
+	Blocks : header, kestrelbar, kestreltitle, kestrelmenu, kestrelpage, footer
+{% endcomment %}
+
+{% block header %}{% endblock %}
+
+<div id="kestrelbar"><div id="kestrelbar-wrap">	
+	{% if user.is_authenticated %}
+		{% block kestrelbar %}{% endblock %}
+	{% endif %}
+</div></div>
+
+<div id="kestreltitle">
+	<p class="fleft">{% block kestreltitle %}{% endblock %}</p>
+	
+	<div id="kestreluser" class="fright">
+		<div id="minimenu" class="fleft topmenu">
+			<ul class="hover-menu vertical">
+			{% if user.is_authenticated %}
+				<li>
+					<a href="/user/{{ user.username }}/" title="Profile">{{ user.username }} <img src="/ui/files/people/{{ user.username }}.png" alt="Photo" class="userphoto" /></a>
+					<ul class="hover-block">
+						<li><a href="/logout/">Logout</a></li>
+					</ul>
+				</li>
+			{% else %}
+				<li>
+					<a href="/account/register/" >Register</a>
+				</li>
+			<div class="panel inline"></div>
+			{% endif %}
+			</ul>
+		</div>
+	</div>
+	<div class="clearfloat"></div>
+</div>
+
+<div id="kestrelmenu" class="submenu">
+	{% block kestrelmenu %}
+	<ul class="hover-menu vertical fleft">
+		<li>
+			<a href="/" >Home</a>
+		</li>
+		<li>
+			<a href="/info/about/">About</a>
+		</li>
+		<li>
+			<a href="/info/faq/">FAQ</a>
+		</li>
+	</ul>
+	
+	<ul class="hover-menu vertical fright">
+		<li>
+			<a href="/info/support/">Help</a>
+		</li>
+	</ul>
+	{% endblock %}
+</div>
+
+<div id="kestrelpage">
+	{% if user.is_authenticated %}
+		{% block kestrelpage %}{% endblock %}
+	{% else %}
+	<div id="account" class="fence">
+		<div class="menutitle">Account</div>
+		<div id="login-panel" class="panel">
+			<form action="/login/" method="post" class="" id="_write:sel._login-panel:ln._login">
+				{% csrf_token %}
+				<input type="hidden" name="service" value="session" />
+				<input type="hidden" name="next" value="{% if next %}{{ next }}{% else %}{{ request.path }}{% endif %}" />
+				{% if request.POST.login and form.errors %}
+					<p>{{ form.errors }}</p>
+				{% endif %}
+				<table class="formtable left part15"><tbody>									
+					<tr><td>Username</td>
+					<td><input type="text" name="username" class="required srnd" value="{{ request.POST.username }}"/><span class="error hidden">Invalid Username</span></td></tr>
+					<tr><td>Password</td>
+					<td><input type="password" name="password" class="required srnd" /><span class="error hidden">Invalid Password</span></td></tr>
+					<tr><td colspan="2" style="text-align: center !important; padding: 5px;">
+						<a href="/account/password/" class="button">Forgot Password ?</a>&nbsp;
+						<input name="login" type="submit" value="Sign In" class="button"/>
+						<!--<input name="reset" type="reset" value="Reset" class="button"/>-->
+					</td></tr>
+				</tbody></table>
+			</form>
+		</div>
+	</div>
+	{% endif %}
+</div>
+
+{% block footer %}{% endblock %}
