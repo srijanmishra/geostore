@@ -26,7 +26,10 @@
 				</li>
 			{% else %}
 				<li>
-					<a href="/account/register/" >Register</a>
+					<input type="hidden" name="navigator" value="#/html/" />
+					<input type="hidden" name="url" value="/account/register.html" />
+					<input type="hidden" name="cntr" value="#kestrelbase" />
+					<a href="/account/register/" class="collect">Register</a>
 				</li>
 			<div class="panel inline"></div>
 			{% endif %}
@@ -43,16 +46,25 @@
 			<a href="/" >Home</a>
 		</li>
 		<li>
-			<a href="/info/about/">About</a>
+			<input type="hidden" name="navigator" value="#/html/" />
+			<input type="hidden" name="url" value="/info/about.html" />
+			<input type="hidden" name="cntr" value="#kestrelbase" />
+			<a href="/info/about/" class="collect">About</a>
 		</li>
 		<li>
-			<a href="/info/faq/">FAQ</a>
+			<input type="hidden" name="navigator" value="#/html/" />
+			<input type="hidden" name="url" value="/info/faq.html" />
+			<input type="hidden" name="cntr" value="#kestrelbase" />
+			<a href="/info/faq/" class="collect">FAQ</a>
 		</li>
 	</ul>
 	
 	<ul class="hover-menu vertical fright">
 		<li>
-			<a href="/info/support/">Help</a>
+			<input type="hidden" name="navigator" value="#/html/" />
+			<input type="hidden" name="url" value="/info/support.html" />
+			<input type="hidden" name="cntr" value="#kestrelbase" />
+			<a href="/info/support/" class="collect">Help</a>
 		</li>
 	</ul>
 	{% endblock %}

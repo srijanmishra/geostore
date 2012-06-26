@@ -53,7 +53,9 @@ FireSpark.smart.constant.statusdelay = 500;
 FireSpark.smart.constant.statusduration = 150;
 FireSpark.smart.constant.moveup = true;
 FireSpark.smart.constant.moveduration = 1000;
-
+FireSpark.smart.constant.uicache = false;
+FireSpark.smart.constant.poolforce = true;
+FireSpark.smart.constant.loadmsg = '<span class="loading"></span>';
 
 /**
  *	@initialization Snowblozm and GeoStore
@@ -72,6 +74,11 @@ $(document).ready(function(){
 	Snowblozm.Registry.add('#close', FireSpark.ui.service.ContainerRemove);
 	
 	Snowblozm.Kernel.execute([{
+		service : FireSpark.smart.service.InterfaceCollect,
+		selector : 'a.collect',
+		event : 'click',
+		attribute : 'href',
+	},{
 		service : FireSpark.smart.service.InterfaceTrigger,
 		selector : 'a.navigate',
 		event : 'click',
@@ -128,15 +135,9 @@ $(document).ready(function(){
 			nofrc : true
 		});
 	}
-	window.setInterval(urlcheck, 3500);
+	/*window.setInterval(urlcheck, 3500);*/
 	$('#main-container>.tile-content').eq(0).fadeIn(1000);
 	urlcheck();
-	
-	/**
-	 *	@server loads
-	**
-	GeoStore.core.helper.serverTime($('#server-time'), 'ui/php/time.php');
-	GeoStore.core.helper.serverPortal($('#server-portal'), 'ui/php/portal.php');
 	
 	/**
 	 *	@scroll top

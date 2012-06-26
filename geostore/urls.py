@@ -20,6 +20,6 @@ urlpatterns = patterns('',
 	
 	# kestrel generic urls
 	url(r'^$', 'geostore.core.invoke.run'),
-	url(r'^(?P<service>\w+)/(?P<id>\d+)?\.?(?P<format>\w+)?/?$', 'geostore.core.invoke.run'),
-    url(r'^(?P<service>\w+)/(?P<page>[\w+\/]+)?/?$', 'geostore.core.invoke.run'),
+	url(r'^(?P<page>[\w+\/]+)?\.?(?P<format>\w+)?/?$', 'geostore.core.invoke.run'),
+	url(r'^(?P<service>\w+)/(?P<id>\d+)?\.?(?P<format>\w+)?/?$', 'geostore.core.invoke.run')
 )
