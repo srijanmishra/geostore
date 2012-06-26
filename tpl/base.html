@@ -1,6 +1,6 @@
 {% extends 'kestrel.html' %}
 
-{% block header %}
+{% block header %}{% if not kestrel %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 	<head>
@@ -25,9 +25,9 @@
 			</div>
 			
 			<div id="kestrelbase">
-{% endblock %}
+{% endif %}{% endblock %}
 
-{% block footer %}
+{% block footer %}{% if not kestrel %}
 			</div>
 			
 			<div id="kestrelfooter">
@@ -39,4 +39,4 @@
 		<div id="ui-imports"></div>
 	</body>
 </html>
-{% endblock %}
+{% endif %}{% endblock %}
