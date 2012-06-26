@@ -1,19 +1,23 @@
 /* main layout */
 #geowindow { position: absolute; height: 100%; }
-#geohead { position: fixed; top:0px; left: 0px; width: 285px; } 
-#geobar { position: fixed; top:170px; left: 0px; right: 285px; bottom: 50px; } 
-#geotitle { position: fixed; top:0px; left: 285px; right: 0px;
-				font-family: "Segoi UI Light", sans-serif; font-size: 40px; padding: 8px; border-bottom: 1px solid #CCC; }
-#geopage { position: fixed; top: 65px; left: 285px; right: 0px; bottom: 50px; }
+#geohead { position: fixed; top:0px; left: 0px; width: 200px; } 
+#geobar { position: fixed; top:108px; left: 0px; right: 200px; bottom: 50px; } 
+#geotitle { position: fixed; top:0px; left: 200px; right: 0px; border-bottom: 1px solid #CCC; }
+#geomenu { position: fixed; top:63px; left: 200px; right: 0px; border-bottom: 1px solid #CCC; }
+#geopage { position: fixed; top: 108px; left: 200px; right: 0px; bottom: 50px; }
 #geofooter { position: fixed; left:0; bottom: 0; right: 0; padding: 5px 5px 15px; font-size: 11px; text-align: center; }
 
-#geologo { text-align: center; }
+#geologo { text-align: center; height: 108px; }
 
 /* geobar styles */
-#geobar { width: 282px; overflow: hidden; }
+#geobar { width: 198px; overflow: hidden; }
 #geobar:hover { overflow: auto; }
-#geobar-wrap { width: 265px; }
+#geobar-wrap { width: 180px; }
 
+#geotitle>p { font-family: "Segoi UI Light", sans-serif; font-size: 40px; padding: 8px; }
+#geotitle .frame { padding: 10px; }
+#geomenu { padding: 8px 12px 8px 10px; }
+#geouser { margin: 14px 12px 12px; }
 #geopage { overflow: auto; }
 
 /* general styles */

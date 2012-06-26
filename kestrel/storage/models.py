@@ -44,4 +44,4 @@ class File(Node):
 		if not self.type: 
 			self.type = 'file'
 		# remove / in name
-		super(Directory, self).add(*args, **kwargs)
+		super(File, self).add(*args, **kwargs)

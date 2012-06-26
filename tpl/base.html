@@ -28,7 +28,48 @@
 			</div></div>
 			
 			<div id="geotitle">
-				<p>{% block geotitle %}{% endblock %}</p>
+				<p class="fleft">{% block geotitle %}{% endblock %}</p>
+				
+				<div id="geouser" class="fright">
+					<div id="minimenu" class="fleft topmenu">
+						<ul class="hover-menu vertical">
+						{% if user.is_authenticated %}
+							<li>
+								<a href="/user/{{ user.username }}/" title="Profile">{{ user.username }} <img src="/ui/files/people/{{ user.username }}.png" alt="Photo" class="userphoto" /></a>
+								<ul class="hover-block">
+									<li><a href="/logout/">Logout</a></li>
+								</ul>
+							</li>
+						{% else %}
+							<li>
+								<a href="/account/register/" >Register</a>
+							</li>
+						<div class="panel inline"></div>
+						{% endif %}
+						</ul>
+					</div>
+				</div>
+				<div class="clearfloat"></div>
+			</div>
+			
+			<div id="geomenu" class="submenu">
+				<ul class="hover-menu vertical fleft">
+					<li>
+						<a href="/" >Home</a>
+					</li>
+					<li>
+						<a href="/info/about/">About</a>
+					</li>
+					<li>
+						<a href="/info/faq/">FAQ</a>
+					</li>
+				</ul>
+				
+				<ul class="hover-menu vertical fright">
+					<li>
+						<a href="/info/support/">Help</a>
+					</li>
+				</ul>
 			</div>
 			
 			<div id="geopage">
@@ -64,7 +105,7 @@
 			
 			<div id="geofooter">
 				<p><strong>GeoStore &copy; 2012</strong></p>
-				<p><a href="/info/about/">About</a> &middot; <a href="/info/faq/">FAQ</a> &middot; <a href="/info/terms/">Terms</a> &middot; <a href="/info/support/">Help</a></p>
+				<p><a href="/">Home</a> &middot; <a href="/info/about/">About</a> &middot; <a href="/info/faq/">FAQ</a> &middot; <a href="/info/terms/">Terms</a> &middot; <a href="/info/support/">Help</a></p>
 			</div>
 		</div>
 		

@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.auth.models import User, UserManager
 from django.db.models.signals import post_save
 from kestrel.graph.models import Node, Edge, Color
+from kestrel.storage.models import File
 
 # kestrel people person
 class Person(Node):
@@ -11,12 +12,15 @@ class Person(Node):
 	address = models.CharField(max_length = 512, default = '')
 	dateofbirth = models.DateField(null = True)
 	gender = models.CharField(max_length = 1 , choices = (('M', 'Male'), ('F', 'Female'), ('N', 'Not Specified')), default = 'N')
+	photo = models.OneToOneField(File)
 
 # register handler for user
 def create_person(sender, instance, created, **kwargs):
     if created:
 		parent = Node.objects.get(id = settings.PEOPLE_ID)
-		person = Person.objects.create(user = instance, name = instance.username, type = 'user', author = instance.username, parent = parent)
+		file = File(name = instance.username + '.png', author = instance.username, parent = parent)
+		file.add(user = settings.PEOPLE_ID)
+		person = Person.objects.create(user = instance, name = instance.username, type = 'user', author = instance.username, parent = parent, photo = file)
 		person.add(user = settings.PEOPLE_ID, child = person)
 
 post_save.connect(create_person, sender=User)
