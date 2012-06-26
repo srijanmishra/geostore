@@ -14,23 +14,23 @@
 	<body>
 		<span id="load-status"><span class="state loading">Loading GeoStore ...</span></span>
 		
-		<div id="geowindow">
-			<div id="geohead">
-				<div id="geologo">
+		<div id="kestrelwindow">
+			<div id="kestrelhead">
+				<div id="kestrellogo">
 					<a href="/" title="GeoStore Home"><img src="/ui/img/geostore/logo.png" alt="GeoStore Logo" /></a>
 				</div>
 			</div>
 			
-			<div id="geobar"><div id="geobar-wrap">	
+			<div id="kestrelbar"><div id="kestrelbar-wrap">	
 				{% if user.is_authenticated %}
-					{% block geobar %}{% endblock %}
+					{% block kestrelbar %}{% endblock %}
 				{% endif %}
 			</div></div>
 			
-			<div id="geotitle">
-				<p class="fleft">{% block geotitle %}{% endblock %}</p>
+			<div id="kestreltitle">
+				<p class="fleft">{% block kestreltitle %}{% endblock %}</p>
 				
-				<div id="geouser" class="fright">
+				<div id="kestreluser" class="fright">
 					<div id="minimenu" class="fleft topmenu">
 						<ul class="hover-menu vertical">
 						{% if user.is_authenticated %}
@@ -52,7 +52,7 @@
 				<div class="clearfloat"></div>
 			</div>
 			
-			<div id="geomenu" class="submenu">
+			<div id="kestrelmenu" class="submenu">
 				<ul class="hover-menu vertical fleft">
 					<li>
 						<a href="/" >Home</a>
@@ -72,9 +72,9 @@
 				</ul>
 			</div>
 			
-			<div id="geopage">
+			<div id="kestrelpage">
 				{% if user.is_authenticated %}
-					{% block geopage %}{% endblock %}
+					{% block kestrelpage %}{% endblock %}
 				{% else %}
 				<div id="account" class="fence">
 					<div class="menutitle">Account</div>
@@ -103,7 +103,7 @@
 				{% endif %}
 			</div>
 			
-			<div id="geofooter">
+			<div id="kestrelfooter">
 				<p><strong>GeoStore &copy; 2012</strong></p>
 				<p><a href="/">Home</a> &middot; <a href="/info/about/">About</a> &middot; <a href="/info/faq/">FAQ</a> &middot; <a href="/info/terms/">Terms</a> &middot; <a href="/info/support/">Help</a></p>
 			</div>
