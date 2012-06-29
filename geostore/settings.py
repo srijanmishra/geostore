@@ -152,14 +152,26 @@ OPENID_SSO_SERVER_URL = 'https://www.google.com/accounts/o8/id'
 
 # geostore settings
 ROOTPATH = 'http://127.0.0.1:8080'
-DESK = 'home'
-STATUS = 'Loading GeoStore UI ...'
 
-# kestrel settings
+# kestrel  people settings
 PEOPLE_ID = 0
+PEOPLE_VERIFY_EXPIRY = 5
+PEOPLE_VERIFY_SUBJECT = 'GeoStore Account Verification'
+PEOPLE_VERIFY_BODY = 'Hello %(username)s,\nYour GeoStore account was created successfully.\n\nPlease click on the following link to verify your registration:\n'+ ROOTPATH +'/verify/%(username)s/%(verify)s/\n\nRegards,\nTeam GeoStore\n'
+PEOPLE_RESET_SUBJECT = 'GeoStore Password Reset'
+PEOPLE_RESET_BODY = 'Hello %(username)s,\nYour GeoStore password was reset successfully.\n\nPlease use the following password to access your account:\n\nUsername : %(username)s\nPassword : %(password)s\n\nRegards,\nTeam GeoStore\n'
+
+# kestrel  storage settings
 STORAGE_ID = 0
 STORAGE_PRIVATE_ROOT = 'C:/Program Files (x86)/Apache Software Foundation/Apache2.2/htdocs/geostore/storage'
 STORAGE_PUBLIC_ROOT = 'C:/Program Files (x86)/Apache Software Foundation/Apache2.2/htdocs/geostore/ui/files'
+
+# email settings
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'support@orbitnote.com'
+EMAIL_HOST_PASSWORD = 'Orb17N0t3'
+EMAIL_USE_TLS = True
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

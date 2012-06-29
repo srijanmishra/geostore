@@ -3,4 +3,6 @@
 #search input[type=text] { padding: 5px;  display: block; margin: 0px;  width: 189px; }
 
 /* sections style */
-#account { margin: 25px auto; padding-left: 3px; width: 300px; }
+#login { margin: 25px auto 0; padding-left: 3px; width: 300px; }
+#reset { margin: 25px auto; padding-left: 3px; width: 300px; }
+#register { margin: 25px auto; padding-left: 3px; width: 500px; }

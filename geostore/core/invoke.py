@@ -4,9 +4,9 @@ import kestrel.core.workflow
 # input service string Service Key [kwargs] optional
 # output request dict Request [kwargs] optional
 def run(request, **kwargs):
-	kwargs['mappings'] = {
+	mappings = {
 		'demo' : 'geostore.core.demo',
 	}
 	
-	return kestrel.core.workflow.run(request, **kwargs)
+	return kestrel.core.workflow.run(request, mappings, **kwargs)
 	

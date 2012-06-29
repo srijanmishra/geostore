@@ -4,10 +4,9 @@
 
 {% block kestreltitle %}Welcome{% endblock %}
 
-{% block geopage %}
-{% if user.is_authenticated %}
-	<p>Welcome, {{ user.username }}. 
-{% else %}
-	<p>Welcome.</p>
-{% endif %}
+{% block kestrelcontent %}
+	<div class="align-center">
+		<p>GeoStore is a geographically distributed cloud storage.</p>
+		<p><img src="ui/img/geostore/icon-big.png" alt="ICON" style="height: 300px;"></p>
+	</div>
 {% endblock %}

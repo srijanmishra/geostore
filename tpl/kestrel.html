@@ -5,12 +5,6 @@
 
 {% block header %}{% endblock %}
 
-<div id="kestrelbar"><div id="kestrelbar-wrap">	
-	{% if user.is_authenticated %}
-		{% block kestrelbar %}{% endblock %}
-	{% endif %}
-</div></div>
-
 <div id="kestreltitle">
 	<p class="fleft">{% block kestreltitle %}{% endblock %}</p>
 	
@@ -19,7 +13,7 @@
 			<ul class="hover-menu vertical">
 			{% if user.is_authenticated %}
 				<li>
-					<a href="/user/{{ user.username }}/" title="Profile">{{ user.username }} <img src="/ui/files/people/{{ user.username }}.png" alt="Photo" class="userphoto" /></a>
+					<a href="/user/{{ user.username }}/" title="Profile">{{ user.username }} <img src="/ui/files/people/{{ user.username }}.png" alt="" class="userphoto" /></a>
 					<ul class="hover-block">
 						<li><a href="/logout/">Logout</a></li>
 					</ul>
@@ -27,9 +21,15 @@
 			{% else %}
 				<li>
 					<input type="hidden" name="navigator" value="#/html/" />
-					<input type="hidden" name="url" value="/account/register.html/" />
+					<input type="hidden" name="url" value="/account/login.html/" />
 					<input type="hidden" name="cntr" value="#kestrelbase" />
-					<a href="/account/register/" class="collect">Register</a>
+					<a href="/login/" class="collect">Login</a>
+				</li>
+				<li>
+					<input type="hidden" name="navigator" value="#/html/" />
+					<input type="hidden" name="url" value="/account/login.html/" />
+					<input type="hidden" name="cntr" value="#kestrelbase" />
+					<a href="/register/" class="collect">Register</a>
 				</li>
 			<div class="panel inline"></div>
 			{% endif %}
@@ -73,35 +73,16 @@
 	{% endblock %}
 </div>
 
-<div id="kestrelpage">
-	{% if user.is_authenticated %}
+<div id="kestrelcontent">
+	{% block kestrelcontent %}
+	<div id="kestrelbar"><div id="kestrelbar-wrap">	
+		{% block kestrelbar %}{% endblock %}
+	</div></div>
+
+	<div id="kestrelpage">
 		{% block kestrelpage %}{% endblock %}
-	{% else %}
-	<div id="account" class="fence">
-		<div class="menutitle">Account</div>
-		<div id="login-panel" class="panel">
-			<form action="/login/" method="post" class="" id="_write:sel._login-panel:ln._login">
-				{% csrf_token %}
-				<input type="hidden" name="service" value="session" />
-				<input type="hidden" name="next" value="{% if next %}{{ next }}{% else %}{{ request.path }}{% endif %}" />
-				{% if request.POST.login and form.errors %}
-					<p>{{ form.errors }}</p>
-				{% endif %}
-				<table class="formtable left part15"><tbody>									
-					<tr><td>Username</td>
-					<td><input type="text" name="username" class="required srnd" value="{{ request.POST.username }}"/><span class="error hidden">Invalid Username</span></td></tr>
-					<tr><td>Password</td>
-					<td><input type="password" name="password" class="required srnd" /><span class="error hidden">Invalid Password</span></td></tr>
-					<tr><td colspan="2" style="text-align: center !important; padding: 5px;">
-						<a href="/account/password/" class="button">Forgot Password ?</a>&nbsp;
-						<input name="login" type="submit" value="Sign In" class="button"/>
-						<!--<input name="reset" type="reset" value="Reset" class="button"/>-->
-					</td></tr>
-				</tbody></table>
-			</form>
-		</div>
 	</div>
-	{% endif %}
+	{% endblock %}
 </div>
 
 {% block footer %}{% endblock %}

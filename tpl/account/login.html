@@ -1,26 +1,94 @@
 {% extends "base.html" %}
 
-{% block html %}
+{% block title %}Login{% endblock %}
 
-{% if form.errors %}
-<p>Your username and password didn't match. Please try again.</p>
+{% block kestreltitle %}GeoStore Accounts{% endblock %}
+
+{% block kestrelcontent %}
+{% if user.is_authenticated %}
+	<p>Welcome, {{ user.username }}. You are already logged in.</p>
+{% else %}
+	<table class="layout"><tbody><tr><td style="width: 40%">
+		<div id="login" class="fence">
+			<div class="menutitle">Login</div>
+			<div id="login-panel" class="panel">
+				<form action="/login/" method="post" >
+					{% csrf_token %}
+					<input type="hidden" name="next" value="{{ next }}" />
+					{% if request.POST.login and form.non_field_errors %}
+						<p class="error">{{ form.non_field_errors.as_text }}</p>
+					{% endif %}
+					<table class="formtable part25"><tbody>									
+						<tr><td>Username</td>
+						<td><input type="text" name="username" class="required srnd" value="{{ request.POST.username }}"/><span class="error hidden">Invalid Username</span>{% if request.POST.login and form.username.errors %}<p class="error">{{ form.username.errors.as_text }}</p>{% endif %}</td></tr>
+						<tr><td>Password</td>
+						<td><input type="password" name="password" class="required srnd" /><span class="error hidden">Invalid Password</span>{% if request.POST.login and form.password.errors %}<p class="error">{{ form.password.errors.as_text }}</p>{% endif %}</td></tr>
+						<tr><td colspan="2" style="text-align: center !important; padding: 5px;">
+							<!--<a href="/account/password/" class="button">Forgot Password ?</a>&nbsp;-->
+							<input name="login" type="submit" value="Login" class="button"/>
+							<!--<input name="reset" type="reset" value="Reset" class="button"/>-->
+						</td></tr>
+					</tbody></table>
+				</form>
+			</div>
+		</div>
+	</td><td rowspan = "2">
+		<div class="fence" id="register">
+			<div class="menutitle">Register</div>
+			<div id="register-panel" class="panel">
+			{% if success %}
+				<p class="success">Your account has been created successfully.</p>
+				<p class="success">Please check your inbox for verification mail.</p>
+			{% else %}
+				<form action="/register/" method="post">
+					{% csrf_token %}
+					{% if request.POST.register and form.non_field_errors %}
+						<p class="error">{{ form.non_field_errors.as_text }}</p>
+					{% endif %}
+					<table class="formtable part25"><tbody>									
+						<tr><td>Username</td>
+						<td><input type="text" name="username" class="required srnd" value="{{ request.POST.username }}"/><span class="error hidden">Invalid Username</span>{% if request.POST.register and form.username.errors %}<p class="error">{{ form.username.errors.as_text }}</p>{% endif %}</td></tr>
+						<tr><td>Password</td>
+						<td><input type="password" name="password1" class="required srnd" /><span class="error hidden">Invalid Password</span>{% if request.POST.register and form.password1.errors %}<p class="error">{{ form.password1.errors.as_text }}</p>{% endif %}</td></tr>
+						<tr><td>Confirm Password</td>
+						<td><input type="password" name="password2" class="required srnd" /><span class="error hidden">Passwords do not match</span>{% if request.POST.register and form.password2.errors %}<p class="error">{{ form.password2.errors.as_text }}</p>{% endif %}</td></tr>
+						<tr><td>Email</td>
+						<td><input type="text" name="email" class="required email srnd" value="{{ request.POST.email }}"/><span class="error hidden">Invalid Email</span>{% if request.POST.register and form.email.errors %}<p class="error">{{ form.email.errors.as_text }}</p>{% endif %}</td></tr>
+						<tr><td colspan="2" style="text-align: center !important; padding: 5px;">
+							<input name="register" type="submit" value="Register" class="button"/>&nbsp;
+							<input name="reset" type="reset" value="Reset" class="button"/>
+						</td></tr>
+					</tbody></table>
+				</form>
+			{% endif %}
+			</div>
+		</div>
+	</td></tr><tr><td>
+		<div id="reset" class="fence">
+			<div class="menutitle">Forgot Password ?</div>
+			<div id="reset-panel" class="panel">
+				{% if success %}
+					<p class="success">Your password has been reset successfully.</p>
+					<p class="success">Please check your inbox for notification mail.</p>
+				{% else %}
+				<form action="/reset/" method="post" >
+					{% csrf_token %}
+					{% if request.POST.resetpass and errors %}
+						<p class="error">{{ errors }}</p>
+					{% endif %}
+					<table class="formtable part25"><tbody>									
+						<tr><td>Username</td>
+						<td><input type="text" name="username" class="required srnd" value="{{ request.POST.username }}"/><span class="error hidden">Invalid Username</span>{% if request.POST.resetpass and form.username.errors %}<p class="error">{{ form.username.errors.as_text }}</p>{% endif %}</td></tr>
+						<tr><td colspan="2" style="text-align: center !important; padding: 5px;">
+							<!--<a href="/account/password/" class="button">Forgot Password ?</a>&nbsp;-->
+							<input name="resetpass" type="submit" value="Reset Password" class="button"/>
+							<!--<input name="reset" type="reset" value="Reset" class="button"/>-->
+						</td></tr>
+					</tbody></table>
+				</form>
+				{% endif %}
+			</div>
+		</div>
+	</td></tr></tbody></table>
 {% endif %}
-
-<form method="post" action="">
-{% csrf_token %}
-<table>
-<tr>
-    <td>{{ form.username.label_tag }}</td>
-    <td>{{ form.username }}</td>
-</tr>
-<tr>
-    <td>{{ form.password.label_tag }}</td>
-    <td>{{ form.password }}</td>
-</tr>
-</table>
-
-<input type="submit" value="login" />
-<input type="hidden" name="next" value="{{ next }}" />
-</form>
-
 {% endblock %}

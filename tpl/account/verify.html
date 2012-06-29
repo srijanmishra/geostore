@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Verify{% endblock %}
+
+{% block kestreltitle %}Verify Account{% endblock %}
+
+{% block kestrelcontent %}
+	{% if user.is_authenticated %}
+		<p>Welcome, {{ user.username }}. You are already logged in.</p>
+	{% else %}
+		{% if success %}
+			<p class="success">Your account has been verified successfully.</p>
+		{% else %}
+			<p class="error">Invalid request.</p>
+		{% endif %}
+	{% endif %}
+{% endblock %}

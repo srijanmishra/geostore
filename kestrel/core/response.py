@@ -4,29 +4,19 @@ from django.template import RequestContext
 from django.utils import simplejson
 from django.http import HttpResponse
 
-def run(kwargs):
-	if kwargs.has_key('page') and kwargs.get('page') == None:
-		del kwargs['page']
+def run(request, page = 'page/home', data = {}, format = None):
+	#if kwargs.has_key('page') and kwargs.get('page') == None:
+	#	del kwargs['page']
+	if data.has_key('kestrel'):
+		del data['kestrel']
 	
 	# respond json data
-	if kwargs.get('format', None) == 'json':
-		return HttpResponse(
-			simplejson.dumps(kwargs.get('data', {})), 
-			mimetype='application/json'
-		)
+	if format == 'json':
+		return HttpResponse(simplejson.dumps(data), mimetype='application/json')
 	# respond kestrel base html
-	elif kwargs.get('format', None) == 'html':
-		data = kwargs.get('data', {})
+	elif format == 'html':
 		data['kestrel'] = 'html'
-		return render_to_response(
-			kwargs.get('page', 'page/home') + '.html', 
-			data, 
-			context_instance = RequestContext(kwargs.get('request', None))
-		)
+		return render_to_response(page + '.html', data, context_instance = RequestContext(request))
 	# respond base html
 	else:
-		return render_to_response(
-			kwargs.get('page', 'page/home') + '.html', 
-			kwargs.get('data', {}), 
-			context_instance = RequestContext(kwargs.get('request', None))
-		)
+		return render_to_response(page + '.html', data, context_instance = RequestContext(request))
