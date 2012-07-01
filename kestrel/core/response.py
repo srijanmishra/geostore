@@ -4,12 +4,12 @@ from django.template import RequestContext
 from django.utils import simplejson
 from django.http import HttpResponse
 
-def run(request, page = 'page/home', data = {}, format = None):
+def run(request, format = None, page = 'page/home', data = {}):
 	#if kwargs.has_key('page') and kwargs.get('page') == None:
 	#	del kwargs['page']
 	if data.has_key('kestrel'):
 		del data['kestrel']
-	
+
 	# respond json data
 	if format == 'json':
 		return HttpResponse(simplejson.dumps(data), mimetype='application/json')

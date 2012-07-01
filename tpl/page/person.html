@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block kestrelblock %}
+<div id="person-view-{{ person.id }}" class="tile-content" {% if view %}style="display: block"{% endif %}>
+	{% include 'person/home.html' %}
+</div>
+<div id="person-edit-{{ person.id }}" class="tile-content" {% if edit %}style="display: block"{% endif %}>
+	{% include 'person/edit.html' %}
+</div>
+<div id="person-photo-{{ person.photo }}" class="tile-content" {% if edit %}style="display: block"{% endif %}>
+
+</div>
+{% endblock %}

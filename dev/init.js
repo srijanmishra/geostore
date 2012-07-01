@@ -56,6 +56,7 @@ FireSpark.smart.constant.moveduration = 1000;
 FireSpark.smart.constant.uicache = false;
 FireSpark.smart.constant.poolforce = true;
 FireSpark.smart.constant.loadmsg = '<span class="loading"></span>';
+FireSpark.smart.constant.tileuiprefix = '#kestrelbase'
 
 /**
  *	@initialization Snowblozm and GeoStore
@@ -137,7 +138,10 @@ $(document).ready(function(){
 		});
 	}
 	/*window.setInterval(urlcheck, 3500);*/
-	$('#main-container>.tile-content').eq(0).fadeIn(1000);
+	//var $el = $('#kestrelbase>.tile-content').eq(0);
+	//if(!$el.is(':visible')){
+	//	$el.fadeIn(150);
+	//}
 	urlcheck();
 	
 	/**

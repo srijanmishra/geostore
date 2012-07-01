@@ -5,84 +5,31 @@
 
 {% block header %}{% endblock %}
 
-<div id="kestreltitle">
+{% block kestrelblock %}
+<div class="kestreltitle">
 	<p class="fleft">{% block kestreltitle %}{% endblock %}</p>
 	
-	<div id="kestreluser" class="fright">
-		<div id="minimenu" class="fleft topmenu">
-			<ul class="hover-menu vertical">
-			{% if user.is_authenticated %}
-				<li>
-					<a href="/user/{{ user.username }}/" title="Profile">{{ user.username }} <img src="/ui/files/people/{{ user.username }}.png" alt="" class="userphoto" /></a>
-					<ul class="hover-block">
-						<li><a href="/logout/">Logout</a></li>
-					</ul>
-				</li>
-			{% else %}
-				<li>
-					<input type="hidden" name="navigator" value="#/html/" />
-					<input type="hidden" name="url" value="/account/login.html/" />
-					<input type="hidden" name="cntr" value="#kestrelbase" />
-					<a href="/login/" class="collect">Login</a>
-				</li>
-				<li>
-					<input type="hidden" name="navigator" value="#/html/" />
-					<input type="hidden" name="url" value="/account/login.html/" />
-					<input type="hidden" name="cntr" value="#kestrelbase" />
-					<a href="/register/" class="collect">Register</a>
-				</li>
-			<div class="panel inline"></div>
-			{% endif %}
-			</ul>
-		</div>
-	</div>
+	{% include 'default/kestreluser.html' %}
 	<div class="clearfloat"></div>
 </div>
 
-<div id="kestrelmenu" class="submenu">
+<div class="kestrelmenu submenu">
 	{% block kestrelmenu %}
-	<ul class="hover-menu vertical fleft">
-		<li>
-			<input type="hidden" name="navigator" value="#/html/" />
-			<input type="hidden" name="url" value="/page/home.html/" />
-			<input type="hidden" name="cntr" value="#kestrelbase" />
-			<a href="/" class="collect">Home</a>
-		</li>
-		<li>
-			<input type="hidden" name="navigator" value="#/html/" />
-			<input type="hidden" name="url" value="/info/about.html/" />
-			<input type="hidden" name="cntr" value="#kestrelbase" />
-			<a href="/info/about/" class="collect">About</a>
-		</li>
-		<li>
-			<input type="hidden" name="navigator" value="#/html/" />
-			<input type="hidden" name="url" value="/info/faq.html/" />
-			<input type="hidden" name="cntr" value="#kestrelbase" />
-			<a href="/info/faq/" class="collect">FAQ</a>
-		</li>
-	</ul>
-	
-	<ul class="hover-menu vertical fright">
-		<li>
-			<input type="hidden" name="navigator" value="#/html/" />
-			<input type="hidden" name="url" value="/info/support.html/" />
-			<input type="hidden" name="cntr" value="#kestrelbase" />
-			<a href="/info/support/" class="collect">Help</a>
-		</li>
-	</ul>
+		{% include 'default/kestrelmenu.html' %}
 	{% endblock %}
 </div>
 
-<div id="kestrelcontent">
+<div class="kestrelcontent">
 	{% block kestrelcontent %}
-	<div id="kestrelbar"><div id="kestrelbar-wrap">	
+	<div class="kestrelbar"><div class="kestrelbar-wrap">	
 		{% block kestrelbar %}{% endblock %}
 	</div></div>
 
-	<div id="kestrelpage">
+	<div class="kestrelpage">
 		{% block kestrelpage %}{% endblock %}
 	</div>
 	{% endblock %}
 </div>
+{% endblock %}
 
 {% block footer %}{% endblock %}

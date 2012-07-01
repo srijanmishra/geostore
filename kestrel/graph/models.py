@@ -38,9 +38,11 @@ class Node(models.Model):
 				if not self.authorize:
 					self.authorize = self.parent.authorize
 				super(Node, self).save()
+				self.owner = self
+				super(Node, self).save()
+				edge = Edge(parent = self, child = kwargs.get('child', self.owner), type = 'user', color = 'owner', delegate = kwargs.get('udelegate', 'info:edit:add:remove:list'))
+				edge.save()
 			edge = Edge(parent = self.parent, child = self, type = self.type, color = kwargs.get('acolor', 'all'),  delegate = kwargs.get('delegate', 'info:edit:add:remove:list'))
-			edge.save()
-			edge = Edge(parent = self, child = kwargs.get('child', self.owner), type = 'user', color = 'owner', delegate = kwargs.get('udelegate', 'info:edit:add:remove:list'))
 			edge.save()
 			self.parent.count = models.F('count') + 1;
 			self.parent.save()

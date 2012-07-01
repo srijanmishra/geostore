@@ -39,7 +39,7 @@ def verify(request, **kwargs):
 	kwargs['data'] = { 'success' : success }
 	return response.run(request, **kwargs)
 	
-def reset(request, **kwargs):
+def reset(request, username, csrfmiddlewaretoken, resetpass = None, **kwargs):
 	kwargs['page'] = 'account/login'
 	success = False
 	errors = None
@@ -47,14 +47,32 @@ def reset(request, **kwargs):
 	if request.user.is_authenticated():
 		return response.run(request, **kwargs)
 	
-	if request.POST and request.POST.get('username', None):
-		u = User.objects.get(username = request.POST.get('username', None))
+	try:
+		u = User.objects.get(username = username)
 		if u.get_profile().reset():
 			success = True
 		else:
 			errors = 'Invalid username'
-	else:
+	except Exception:
 		errors = 'Invalid username'
 	
 	kwargs['data'] = { 'success' : success, 'errors' : errors }
+	return kwargs
+
+def profile(request, **kwargs):
+	kwargs['page'] = 'page/person'
+	data = { 'success' : False, 'errors' : None, 'view' : True }
+	user = request.user.get_profile().id if request.user.is_authenticated() else -1
+	print user
+	if kwargs.get('username', None):
+		u = User.objects.get(username = kwargs.pop('username', None))
+		p = u.get_profile()
+		data['success'] = True
+		data['user'] = u
+		data['person'] = p
+		data['admin'] = p.guard(user = user, action = 'edit', iaction = 'edit', color = 'all', icolor = 'all')
+	else:
+		data['errors'] = 'Invalid username'
+	
+	kwargs['data'] = data
 	return response.run(request, **kwargs)

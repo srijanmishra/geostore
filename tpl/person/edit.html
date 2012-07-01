@@ -1,0 +1,55 @@
+{% extends "kestrel.html" %}
+
+{% block title %}{{ user.username }}{% endblock %}
+
+{% block kestreltitle %}Edit Profile : {{ user.username }}{% endblock %}
+
+{% block kestrelmenu %}
+<ul class="hover-menu vertical fleft">
+	<li>
+		<input type="hidden" name="navigator" value="#/view/" />
+		<input type="hidden" name="tile" value="#person-view-{{ person.id }}" />
+		<input type="hidden" name="cntr" value="#kestrelbase" />
+		<a href="/user/{{ user.username }}/" class="collect">View Profile</a>
+	</li>
+</ul>
+{% endblock %}
+
+{% block kestrelcontent %}
+	<div id="person-edit-panel-{{ person.id }}" class="panel">
+		<form action="/user/{{ user.username }}/edit/" method="post" >
+			{% csrf_token %}
+			<input type="hidden" name="person-id" value="{{ person.id }}" />
+			{% if request.POST.edit and form.non_field_errors %}
+				<p class="error">{{ form.non_field_errors.as_text }}</p>
+			{% endif %}
+			<table class="formtable part25"><tbody>									
+				<tr><td>First Name</td>
+				<td><input type="text" name="first_name" class="required" value="{{ user.first_name }}"/><span class="error hidden">Invalid Firstname</span>{% if request.POST.edit and form.first_name.errors %}<p class="error">{{ form.first_name.errors.as_text }}</p>{% endif %}</td></tr>
+				<tr><td>Last Name</td>
+				<td><input type="text" name="last_name" class="required" value="{{ user.last_name }}"/><span class="error hidden">Invalid Lastname</span>{% if request.POST.edit and form.last_name.errors %}<p class="error">{{ form.last_name.errors.as_text }}</p>{% endif %}</td></tr>
+				<tr><td>Short Description</td>
+				<td><textarea name="desc" class="cover" >{{ person.desc }}</textarea>{% if request.POST.edit and form.desc.errors %}<p class="error">{{ form.desc.errors.as_text }}</p>{% endif %}</td></tr>
+				<tr><td>Phone</td>
+				<td><input type="text" name="phone" class="" value="{{ person.phone }}"/>{% if request.POST.edit and form.phone.errors %}<p class="error">{{ form.phone.errors.as_text }}</p>{% endif %}</td></tr>
+				<tr><td>Address</td>
+				<td><textarea name="address" class="cover" >{{ person.address }}</textarea>{% if request.POST.edit and form.address.errors %}<p class="error">{{ form.address.errors.as_text }}</p>{% endif %}</td></tr>
+				<tr><td>Gender</td>
+				<td><select name="gender" >
+						<option value="N" {%ifequal person.gender "N" %}selected="selected"{% endifequal %} >Select</option>
+						<option value="M" {%ifequal person.gender "M" %}selected="selected"{% endifequal %} >Male</option>
+						<option value="F" {%ifequal person.gender "F" %}selected="selected"{% endifequal %} >Female</option>
+				</select>{% if request.POST.edit and form.gender.errors %}<p class="error">{{ form.gender.errors.as_text }}</p>{% endif %}</td></tr>
+				<tr><td>Date of Birth</td>
+				<td><input type="text" name="dateofbirth" value="{% if person.dateofbirth %}{{ person.dateofbirth }}{% endif %}"/>&nbsp;&nbsp;<span class="desc">Format : YYYY-MM-DD</span>{% if request.POST.edit and form.dateofbirth.errors %}<p class="error">{{ form.dateofbirth.errors.as_text }}</p>{% endif %}</td></tr>
+				<tr><td></td><td>
+					<input name="edit" type="submit" value="Submit" class="button"/>
+					<input name="reset" type="reset" value="Reset" class="button"/>
+				</td></tr>
+			</tbody></table>
+		</form>
+	</div>
+{% endblock %}
+
+
+

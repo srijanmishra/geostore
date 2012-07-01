@@ -71,7 +71,7 @@
 					<p class="success">Your password has been reset successfully.</p>
 					<p class="success">Please check your inbox for notification mail.</p>
 				{% else %}
-				<form action="/reset/" method="post" >
+				<form action="/run/user/reset/" method="post" >
 					{% csrf_token %}
 					{% if request.POST.resetpass and errors %}
 						<p class="error">{{ errors }}</p>

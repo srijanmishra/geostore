@@ -18,6 +18,7 @@
 table.formtable { width: 100%; }
 table.formtable>tbody>tr>td { padding: 5px 0; vertical-align: top; }
 table.formtable>tbody>tr>td:first-child { width: 20%; text-align: right; padding: 11px 0; }
+table.formtable.normal>tbody>tr>td:first-child { width: 20%; text-align: right; padding: 5px 0; }
 table.formtable.left>tbody>tr>td:first-child { text-align: left !important; }
 table.formtable>tbody>tr>td:last-child { width: 78%; padding-left: 5px; }
 table.formtable.part15>tbody>tr>td:first-child { width: 15%; text-align: right; }
@@ -117,25 +118,25 @@ div.panel br { font-size : 0.5em; }
 /* main layout */
 #kestrelwindow { position: absolute; height: 100%; }
 #kestrelhead { position: fixed; top:0px; left: 0px; width: 200px; border-bottom: 1px solid #CCC; } 
-#kestreltitle { position: fixed; top:0px; left: 200px; right: 0px; border-bottom: 1px solid #CCC; }
-#kestrelmenu { position: fixed; top:63px; left: 200px; right: 0px; border-bottom: 1px solid #CCC; }
-#kestrelcontent { position: fixed; top:108px; left: 0px; right: 0px; bottom: 49px; } 
-#kestrelbar { position: fixed; top:108px; left: 0px; right: 200px; bottom: 49px; } 
-#kestrelpage { position: fixed; top: 108px; left: 200px; right: 0px; bottom: 49px; }
+.kestreltitle { position: fixed; top:0px; left: 200px; right: 0px; border-bottom: 1px solid #CCC; }
+.kestrelmenu { position: fixed; top:63px; left: 200px; right: 0px; border-bottom: 1px solid #CCC; }
+.kestrelcontent { position: fixed; top:108px; left: 0px; right: 0px; bottom: 49px; } 
+.kestrelbar { position: fixed; top:108px; left: 0px; right: 200px; bottom: 49px; } 
+.kestrelpage { position: fixed; top: 108px; left: 200px; right: 0px; bottom: 49px; }
 #kestrelfooter { position: fixed; left:0; bottom: 0; right: 0; padding: 5px 5px 15px; font-size: 11px; text-align: center; border-top: 1px solid #CCC; }
 
 /* kestrel styles */
 #kestrellogo { text-align: center; height: 107px; }
-#kestrelcontent { overflow: auto; }
-#kestrelbar { width: 198px; overflow: hidden; }
-#kestrelbar:hover { overflow: auto; }
-#kestrelbar-wrap { width: 180px; }
-#kestreltitle>p { font-family: "Segoi UI Light", sans-serif; font-size: 30px; padding: 12px; }
-#kestreltitle .frame { padding: 10px; }
-#kestrelmenu { padding: 8px 12px 8px 10px; }
-#kestreluser { margin: 14px 12px 12px; }
-#kestrelpage { overflow: auto; }
-#kestrelcontent p { margin: 10px; }
+.kestrelcontent { overflow: auto; }
+.kestrelcontent p { margin: 10px; }
+.kestrelbar { width: 198px; overflow: hidden; }
+.kestrelbar:hover { overflow: auto; }
+.kestrelbar-wrap { width: 180px; }
+.kestreltitle>p { font-family: "Segoi UI Light", sans-serif; font-size: 30px; padding: 12px; }
+.kestreltitle .frame { padding: 10px; }
+.kestrelmenu { padding: 8px 12px 8px 10px; }
+.kestreluser { margin: 14px 12px 12px; }
+.kestrelpage { overflow: auto; }
 
 /* general styles */
 .fence { border: solid 1px #DDD; border-radius: 3px 3px 3px 3px; -moz-border-radius: 3px 3px 3px 3px; -webkit-border-radius: 3px 3px 3px 3px; }

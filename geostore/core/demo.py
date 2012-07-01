@@ -1,6 +1,6 @@
 # orbitnote core demo service
 
-def run(request, kwargs):
+def run(request, **kwargs):
 	kwargs['data'] = {
 		'text' : 'OrbitNote Demo'
 	}

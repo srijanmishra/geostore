@@ -1,0 +1,30 @@
+<div class="kestreluser fright">
+	<div class="fleft topmenu">
+		<ul class="hover-menu vertical">
+		{% if user.is_authenticated %}
+			<li>
+				<input type="hidden" name="navigator" value="#/html/" />
+				<input type="hidden" name="url" value="/user/{{ user.username }}.html/" />
+				<input type="hidden" name="cntr" value="#kestrelbase" />
+				<a href="/user/{{ user.username }}/" title="Profile" class="collect">{{ user.username }} <img src="/ui/files/people/{{ user.username }}.png" alt="" class="userphoto" /></a>
+				<ul class="hover-block">
+					<li><a href="/logout/">Logout</a></li>
+				</ul>
+			</li>
+		{% else %}
+			<li>
+				<input type="hidden" name="navigator" value="#/html/" />
+				<input type="hidden" name="url" value="/account/login.html/" />
+				<input type="hidden" name="cntr" value="#kestrelbase" />
+				<a href="/login/" class="collect">Login</a>
+			</li>
+			<li>
+				<input type="hidden" name="navigator" value="#/html/" />
+				<input type="hidden" name="url" value="/account/login.html/" />
+				<input type="hidden" name="cntr" value="#kestrelbase" />
+				<a href="/register/" class="collect">Register</a>
+			</li>
+		{% endif %}
+		</ul>
+	</div>
+</div>

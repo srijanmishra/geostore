@@ -1,0 +1,56 @@
+{% extends "kestrel.html" %}
+
+{% block title %}{{ user.username }}{% endblock %}
+
+{% block kestreltitle %}User Profile : {{ user.username }}{% endblock %}
+
+{% block kestrelmenu %}
+<ul class="hover-menu vertical fleft">
+	<li>
+		<input type="hidden" name="navigator" value="#/view/" />
+		<input type="hidden" name="tile" value="#person-edit-{{ person.id }}" />
+		<input type="hidden" name="cntr" value="#kestrelbase" />
+		<a href="/user/{{ user.username }}/" class="collect">Edit Profile</a>
+	</li>
+</ul>
+{% endblock %}
+
+{% block kestrelcontent %}
+	<table class="formtable grey normal"><tbody>
+
+		<tr>
+			<td><img src="ui/files/person/{{ user.username }}.png" alt="PERSON THUMBNAIL" class="thumb"/></td>
+			<td>
+				<p class="subhead">{{ user.first_name }} {{ user.last_name }}</p>
+				<p class="desc">{{ person.desc }}</p>
+			</td>
+		</tr>
+		
+		{% if admin %}
+		<tr>
+			<td>Email</td>
+			<td>{{ user.email }}</td>
+		</tr>
+		<tr>
+			<td>Phone</td>
+			<td>{{ person.phone }}</td>
+		</tr>
+		<tr>
+			<td>Address</td>
+			<td>{{ person.address }}</td>
+		</tr>
+		<tr>
+			<td>Gender</td>
+			<td>{{ person.gender }}</td>
+		</tr>
+		<tr>
+			<td>Date of birth</td>
+			<td>{{ person.dateofbirth }}</td>
+		</tr>
+		{% endif %}
+		
+	</tbody></table>
+{% endblock %}
+
+
+

@@ -15,7 +15,7 @@ urlpatterns = patterns('',
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/',}, name='logout'),
 	url(r'^register/$', 'kestrel.people.views.register', {}, name='register'),
 	url(r'^verify/(?P<username>\w+)/(?P<code>\w+)/$', 'kestrel.people.views.verify', {}, name='verify'),
-	url(r'^reset/$', 'kestrel.people.views.reset', {}, name='reset'),
+	# url(r'^user/(?P<username>\w+)\.?(?P<format>\w+)?/$', 'kestrel.people.views.profile', {}, name='profile'),
 	
 	# admin urls
     url(r'^admin/', include(admin.site.urls)),
@@ -23,6 +23,7 @@ urlpatterns = patterns('',
 	
 	# kestrel generic urls
 	url(r'^$', 'geostore.core.invoke.run'),
-	url(r'^(?P<page>[\w+\/]+)?\.?(?P<format>\w+)?/$', 'geostore.core.invoke.run'),
-	url(r'^(?P<service>\w+)/(?P<id>\d+)?\.?(?P<format>\w+)?/?$', 'geostore.core.invoke.run')
+	url(r'^run/(?P<service>\w+)/(?P<operation>\w+)?(?P<id>/\w+)?\.?(?P<format>\w+)?/?$', 'geostore.core.invoke.post'),
+	url(r'^(?P<service>\w+)/(?P<operation>\w+)?(?P<id>/\w+)?\.?(?P<format>\w+)?/?$', 'geostore.core.invoke.run'),
+	# url(r'^(?P<page>[\w+\/]+)?\.?(?P<format>\w+)?/$', 'geostore.core.invoke.run'),
 )

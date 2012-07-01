@@ -1,4 +1,5 @@
 # kestrel core workflow service
+from django.utils import simplejson
 import kestrel.core.response
 
 # 
@@ -7,17 +8,28 @@ import kestrel.core.response
 #
 # output request dict Request [kwargs] optional
 #
-def run(request, mappings = {}, **kwargs):
-	service = kwargs.get('service', request.REQUEST.get('service', None))
-	# kwargs['request'] = request
+def run(request, mappings = {}, parse = 'post', service = None, operation = None, id = None, format = None, **kwargs):
+	if parse == 'post':
+		data = request.POST
+	elif parse == 'get':
+		data = request.GET
+	elif parse == 'json':
+		data = simplejson.loads(request.body)
+	else:
+		data = {}
 	
-	if service != None:
-		service = mappings.get(service, None)
-		if service != None:
-			try:
-				service = __import__(service, globals(), locals(), ['run'], -1)
-				kwargs = service.run(request, kwargs)
-			except Exception :
-				pass
+	config = mappings.get(service, None)
+	print config
+	if config != None:
+		#try:
+			service = getattr(__import__(config[0], globals(), locals(), [operation if operation else config[1]], -1), operation if operation else config[1])
+			kwargs = service(request, **(dict(kwargs.items() + data.items())))
+			#service = __import__(config[0], globals(), locals(), [operation if operation else config[1]], -1)
+			#kwargs = service.run(request, **(dict(kwargs.items() + data.items())))
+			print kwargs
+		#except Exception:	
+		#	pass
+	elif service:
+		kwargs['page'] = service + ('/' + operation if operation else '') + ('/' + id if id else '')
 	
-	return kestrel.core.response.run(request, **kwargs)
+	return kestrel.core.response.run(request, format, **kwargs)
