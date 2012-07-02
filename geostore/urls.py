@@ -15,7 +15,7 @@ urlpatterns = patterns('',
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/',}, name='logout'),
 	url(r'^register/$', 'kestrel.people.views.register', {}, name='register'),
 	url(r'^verify/(?P<username>\w+)/(?P<code>\w+)/$', 'kestrel.people.views.verify', {}, name='verify'),
-	# url(r'^user/(?P<username>\w+)\.?(?P<format>\w+)?/$', 'kestrel.people.views.profile', {}, name='profile'),
+	url(r'^(?P<username>\w+)\.?(?P<format>\w+)?/$', 'kestrel.people.views.profile', {}, name='profile'),
 	
 	# admin urls
     url(r'^admin/', include(admin.site.urls)),

@@ -57,6 +57,15 @@ FireSpark.smart.constant.uicache = false;
 FireSpark.smart.constant.poolforce = true;
 FireSpark.smart.constant.loadmsg = '<span class="loading"></span>';
 FireSpark.smart.constant.tileuiprefix = '#kestrelbase'
+FireSpark.smart.constant.readflow = function(){ 
+	return [{ 
+		service : FireSpark.ui.service.ElementContent,
+		input : { element : 'pnl', animation : 'anm', duration : 'dur', delay : 'dly', action : 'act'  },
+		select : true
+	}];
+}
+FireSpark.smart.constant.datatype = 'html'
+FireSpark.smart.constant.readvld = false
 
 /**
  *	@initialization Snowblozm and GeoStore
@@ -80,6 +89,11 @@ $(document).ready(function(){
 		event : 'click',
 		attribute : 'href',
 		nav : true
+	},{
+		service : FireSpark.smart.service.InterfaceCollect,
+		selector : 'form.collect',
+		event : 'submit',
+		attribute : 'action'
 	},{
 		service : FireSpark.smart.service.InterfaceTrigger,
 		selector : 'a.navigate',
