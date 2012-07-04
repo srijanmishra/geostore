@@ -1,0 +1,39 @@
+<div class="quickmenu">
+	{% if request.user.is_authenticated %}
+	<ul class="hover-menu horizontal">
+		<li>
+			<input type="hidden" name="navigator" value="#/html/" />
+			<input type="hidden" name="url" value="/~{{ request.user.username }}/buckets.html/" />
+			<input type="hidden" name="cntr" value="#kestrelbase" />
+			<a href="/~{{ request.user.username }}/buckets/" class="collect">My Buckets</a>
+		</li>
+		<li>
+			<input type="hidden" name="navigator" value="#/html/" />
+			<input type="hidden" name="url" value="/~{{ request.user.username }}.html/" />
+			<input type="hidden" name="cntr" value="#kestrelbase" />
+			<a href="/~{{ request.user.username }}/" class="collect">My Account</a>
+		</li>
+	</ul>
+	{% else %}
+	<ul class="hover-menu horizontal">
+		<li>
+			<input type="hidden" name="navigator" value="#/html/" />
+			<input type="hidden" name="url" value="/page/home.html/" />
+			<input type="hidden" name="cntr" value="#kestrelbase" />
+			<a href="/" class="collect">Home</a>
+		</li>
+		<li>
+			<input type="hidden" name="navigator" value="#/html/" />
+			<input type="hidden" name="url" value="/info/about.html/" />
+			<input type="hidden" name="cntr" value="#kestrelbase" />
+			<a href="/info/about/" class="collect">About</a>
+		</li>
+		<li>
+			<input type="hidden" name="navigator" value="#/html/" />
+			<input type="hidden" name="url" value="/info/faq.html/" />
+			<input type="hidden" name="cntr" value="#kestrelbase" />
+			<a href="/info/faq/" class="collect">FAQ</a>
+		</li>
+	</ul>
+	{% endif %}
+</div>

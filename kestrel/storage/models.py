@@ -4,8 +4,11 @@ from django.db import models
 from django.core.files.storage import FileSystemStorage
 from kestrel.graph.models import Node, Edge, Color
 
-private = FileSystemStorage(location = settings.STORAGE_PRIVATE_ROOT)
-public = FileSystemStorage(location = settings.STORAGE_PUBLIC_ROOT)
+class OverwriteStorage(FileSystemStorage):
+    def get_available_name(self, name):
+        if os.path.exists(self.path(name)):
+            os.remove(self.path(name))
+        return name
 
 # kestrel storage directory
 class Directory(Node):
@@ -31,14 +34,14 @@ class Directory(Node):
 
 # upload_to callable
 def get_upload_path(instance, filename):
-	instance.file.storage = private if parent.private else public
+	d = Directory.objects.get(id = instance.parent.id)
 	if not instance.name: instance.name = filename
 	else : filename = instance.name
-	return ''.join([instance.parent.path, instance.parent.name, '/', filename])
+	return ''.join([settings.STORAGE_PRIVATE_ROOT if d.private else settings.STORAGE_PUBLIC_ROOT, d.path, d.name, '/', filename])
 
 # kestrel storage file
 class File(Node):
-	file = models.FileField(upload_to = get_upload_path, max_length = 512)
+	file = models.FileField(upload_to = get_upload_path, max_length = 512, storage = OverwriteStorage())
 	
 	def add(self, *args, **kwargs):
 		if not self.type: 

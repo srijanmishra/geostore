@@ -2,7 +2,7 @@
 
 {% block title %}{{ user.username }}{% endblock %}
 
-{% block kestreltitle %}User Profile : {{ user.username }}{% endblock %}
+{% block kestreltitle %}{{ user.first_name }} {{ user.last_name }} ({{ user.username }}){% endblock %}
 
 {% block kestrelmenu %}
 <ul class="hover-menu vertical fleft">
@@ -10,16 +10,28 @@
 		<input type="hidden" name="navigator" value="#/view/" />
 		<input type="hidden" name="tile" value="#person-edit-{{ person.id }}" />
 		<input type="hidden" name="cntr" value="#kestrelbase" />
-		<a href="/{{ user.username }}/" class="collect">Edit Profile</a>
+		<a href="/~{{ user.username }}/" class="collect">Edit Profile</a>
+	</li>
+	<li>
+		<input type="hidden" name="navigator" value="#/view/" />
+		<input type="hidden" name="tile" value="#person-passwd-{{ person.id }}" />
+		<input type="hidden" name="cntr" value="#kestrelbase" />
+		<a href="/~{{ user.username }}/" class="collect">Change Password</a>
+	</li>
+	<li>
+		<input type="hidden" name="navigator" value="#/view/" />
+		<input type="hidden" name="tile" value="#person-photo-{{ person.id }}" />
+		<input type="hidden" name="cntr" value="#kestrelbase" />
+		<a href="/~{{ user.username }}/" class="collect">Change Photo</a>
 	</li>
 </ul>
 {% endblock %}
 
-{% block kestrelcontent %}
-	<table class="formtable grey normal"><tbody>
+{% block kestrelpage %}
+	<table class="formtable grey normal part15"><tbody>
 
 		<tr>
-			<td><img src="/ui/files/person/{{ user.username }}.png" alt="PERSON THUMBNAIL" class="thumb"/></td>
+			<td><img src="/ui/files/people/{{ user.username }}.png" alt="PERSON THUMBNAIL" class="thumb"/></td>
 			<td>
 				<p class="subhead">{{ user.first_name }} {{ user.last_name }}</p>
 				<p class="desc">{{ person.desc }}</p>

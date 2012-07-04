@@ -1,0 +1,55 @@
+{% extends "kestrel.html" %}
+
+{% block title %}{{ user.username }}{% endblock %}
+
+{% block kestreltitle %}Change Photo : {{ user.username }}{% endblock %}
+
+{% block kestrelmenu %}
+<ul class="hover-menu vertical fleft">
+	<li>
+		<input type="hidden" name="navigator" value="#/view/" />
+		<input type="hidden" name="tile" value="#person-view-{{ person.id }}" />
+		<input type="hidden" name="cntr" value="#kestrelbase" />
+		<a href="/~{{ user.username }}/" class="collect">View Profile</a>
+	</li>
+	<li>
+		<input type="hidden" name="navigator" value="#/view/" />
+		<input type="hidden" name="tile" value="#person-edit-{{ person.id }}" />
+		<input type="hidden" name="cntr" value="#kestrelbase" />
+		<a href="/~{{ user.username }}/" class="collect">Edit Profile</a>
+	</li>
+	<li>
+		<input type="hidden" name="navigator" value="#/view/" />
+		<input type="hidden" name="tile" value="#person-photo-{{ person.id }}" />
+		<input type="hidden" name="cntr" value="#kestrelbase" />
+		<a href="/~{{ user.username }}/" class="collect">Change Password</a>
+	</li>
+</ul>
+{% endblock %}
+
+{% block kestrelpage %}
+	<div id="person-photo-panel-{{ person.id }}" class="panel">
+		<input type="hidden" name="navigator" value="#/write/" />
+		<input type="hidden" name="sel" value="#person-photo-panel-{{ person.id }}" />
+		<input type="hidden" name="pnl" value="#kestrelbase" />
+		<input type="hidden" name="act" value="all" />
+		<input type="hidden" name="anm" value="none" />
+		<input type="hidden" name="iframe" value="true" />
+		<form action="/run/user/photo/{{ user.username }}.html/" method="post" class="collect" enctype="multipart/form-data">
+			{% csrf_token %}
+			<input type="hidden" name="username" value="{{ user.username }}" />
+
+			<table class="formtable part15"><tbody>
+				{% if photo and valid %}<tr><td></td><td><span class="success">Your photo was changed successfully.</span></td></tr>{% endif %}
+				{% if photo and errors %}<tr><td></td><td><span class="error">{{ errors }}</span></td></tr>{% endif %}
+				<tr><td>File</td>
+				<td><input type="file" name="file" class="required"/><span class="error hidden">Invalid File</span></td></tr>
+				<tr><td></td><td>
+					<input name="photo" type="submit" value="Submit" class="button"/>
+					<input name="reset" type="reset" value="Reset" class="button"/>
+					<span class="status"></span>
+				</td></tr>
+			</tbody></table>
+		</form>
+	</div>
+{% endblock %}

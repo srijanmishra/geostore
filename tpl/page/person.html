@@ -7,7 +7,10 @@
 <div id="person-edit-{{ person.id }}" class="tile-content" {% if edit %}style="display: block"{% endif %}>
 	{% include 'person/edit.html' %}
 </div>
-<div id="person-photo-{{ person.photo }}" class="tile-content" {% if edit %}style="display: block"{% endif %}>
-
+<div id="person-passwd-{{ person.id }}" class="tile-content" {% if passwd %}style="display: block"{% endif %}>
+	{% include 'person/passwd.html' %}
+</div>
+<div id="person-photo-{{ person.id }}" class="tile-content" {% if photo %}style="display: block"{% endif %}>
+	{% include 'person/photo.html' %}
 </div>
 {% endblock %}

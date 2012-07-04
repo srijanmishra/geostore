@@ -10,12 +10,24 @@
 		<input type="hidden" name="navigator" value="#/view/" />
 		<input type="hidden" name="tile" value="#person-view-{{ person.id }}" />
 		<input type="hidden" name="cntr" value="#kestrelbase" />
-		<a href="/{{ user.username }}/" class="collect">View Profile</a>
+		<a href="/~{{ user.username }}/" class="collect">View Profile</a>
+	</li>
+	<li>
+		<input type="hidden" name="navigator" value="#/view/" />
+		<input type="hidden" name="tile" value="#person-passwd-{{ person.id }}" />
+		<input type="hidden" name="cntr" value="#kestrelbase" />
+		<a href="/~{{ user.username }}/" class="collect">Change Password</a>
+	</li>
+	<li>
+		<input type="hidden" name="navigator" value="#/view/" />
+		<input type="hidden" name="tile" value="#person-photo-{{ person.id }}" />
+		<input type="hidden" name="cntr" value="#kestrelbase" />
+		<a href="/~{{ user.username }}/" class="collect">Change Photo</a>
 	</li>
 </ul>
 {% endblock %}
 
-{% block kestrelcontent %}
+{% block kestrelpage %}
 	<div id="person-edit-panel-{{ person.id }}" class="panel">
 		<input type="hidden" name="navigator" value="#/write/" />
 		<input type="hidden" name="sel" value="#person-edit-panel-{{ person.id }}" />
@@ -25,10 +37,10 @@
 		<form action="/run/user/edit/{{ user.username }}.html/" method="post" class="collect">
 			{% csrf_token %}
 			<input type="hidden" name="username" value="{{ user.username }}" />
-			{% if request.POST.edit and errors %}
+			{% if edit and errors %}
 				<p class="error">{{ errors }}</p>
 			{% endif %}
-			<table class="formtable part25"><tbody>									
+			<table class="formtable part15"><tbody>									
 				<tr><td>First Name</td>
 				<td><input type="text" name="first_name" class="required" value="{{ user.first_name }}"/><span class="error hidden">Invalid Firstname</span></td></tr>
 				<tr><td>Last Name</td>
@@ -46,7 +58,7 @@
 						<option value="F" {% if person.gender == "F" %}selected="selected"{% endif %} >Female</option>
 				</select></td></tr>
 				<tr><td>Date of Birth</td>
-				<td><input type="text" name="dateofbirth" value="{% if person.dateofbirth %}{{ person.dateofbirth }}{% endif %}"/>&nbsp;&nbsp;<span class="desc">Format : YYYY-MM-DD</span></td></tr>
+				<td><input type="text" name="dateofbirth" value="{% if person.dateofbirth %}{{ person.dateofbirth }}{% endif %}"/><span class="desc">Format : YYYY-MM-DD</span></td></tr>
 				<tr><td></td><td>
 					<input name="edit" type="submit" value="Submit" class="button"/>
 					<input name="reset" type="reset" value="Reset" class="button"/>

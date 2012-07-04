@@ -53,6 +53,11 @@ def create_person(sender, instance, created, **kwargs):
 		file.add(user = settings.PEOPLE_ID)
 		person = Person.objects.create(user = instance, name = instance.username, type = 'user', author = instance.username, parent = parent, photo = file)
 		person.add(user = settings.PEOPLE_ID, child = person)
+		
+		file.owner = person
+		file.save()
+		person.owner = person
+		person.save()
 
 post_save.connect(create_person, sender=User)
 

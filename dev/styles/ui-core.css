@@ -25,6 +25,7 @@ table.formtable.part15>tbody>tr>td:first-child { width: 15%; text-align: right; 
 table.formtable.part15>tbody>tr>td:last-child { width: 85%; padding-left: 5px; }
 table.formtable.part25>tbody>tr>td:first-child { width: 25%; text-align: right; }
 table.formtable.part25>tbody>tr>td:last-child { width: 75%; padding-left: 5px; }
+table.formtable .desc { margin-left: 5px; }
 
 /* grey formtable styles */
 table.formtable.grey>tbody>tr>td:first-child { color: grey; }

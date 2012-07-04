@@ -4,9 +4,9 @@
 		{% if user.is_authenticated %}
 			<li>
 				<input type="hidden" name="navigator" value="#/html/" />
-				<input type="hidden" name="url" value="/{{ user.username }}.html/" />
+				<input type="hidden" name="url" value="/~{{ user.username }}.html/" />
 				<input type="hidden" name="cntr" value="#kestrelbase" />
-				<a href="/{{ user.username }}/" title="Profile" class="collect">{{ user.username }} <img src="/ui/files/people/{{ user.username }}.png" alt="" class="userphoto" /></a>
+				<a href="/~{{ user.username }}/" title="Profile" class="collect">{{ user.username }} <img src="/ui/files/people/{{ user.username }}.png" alt="" class="userphoto" /></a>
 				<ul class="hover-block">
 					<li><a href="/logout/">Logout</a></li>
 				</ul>

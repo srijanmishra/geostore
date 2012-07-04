@@ -3,7 +3,9 @@ import kestrel.core.workflow
 
 mappings = {
 	'demo' : ('geostore.core.demo', 'run'),
-	'user' : ('kestrel.people.services', 'profile'),
+	'user' : ('kestrel.people.person', 'edit'),
+	'bucket' : ('geostore.core.bucket', 'info'),
+	'buckets' : ('geostore.core.bucket', 'list'),
 }
 
 def run(request, **kwargs):
