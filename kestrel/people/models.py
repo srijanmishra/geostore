@@ -51,8 +51,9 @@ def create_person(sender, instance, created, **kwargs):
 		parent = Node.objects.get(id = settings.PEOPLE_ID)
 		file = File(name = instance.username + '.png', author = instance.username, parent = parent)
 		file.add(user = settings.PEOPLE_ID)
-		person = Person.objects.create(user = instance, name = instance.username, type = 'user', author = instance.username, parent = parent, photo = file)
-		person.add(user = settings.PEOPLE_ID, child = person)
+		person = Person(user = instance, name = instance.username, type = 'user', author = instance.username, parent = parent, photo = file)
+		person.add(user = settings.PEOPLE_ID)
+		person.add(user = settings.PEOPLE_ID, parent = person, ecolor = 'owner.link')
 		
 		file.owner = person
 		file.save()

@@ -10,6 +10,7 @@ class Node(models.Model):
 	type = models.CharField(max_length = 256, default = 'general')
 	desc = models.CharField(max_length = 512, default = '')
 	count = models.IntegerField(default = 0)
+	links = models.IntegerField(default = 0)
 	ctime = models.DateTimeField(auto_now_add = True)
 	mtime = models.DateTimeField(auto_now = True)
 	author = models.CharField(max_length = 256, default = '')
@@ -20,54 +21,82 @@ class Node(models.Model):
 	def __unicode__(self):
 		return '%s [%s] [%d]' % (self.name, self.type, self.id)
 	
-	def add(self, user = None, child = None, action = 'add', iaction = 'add', color = 'owner', icolor = 'all', ecolor = 'all', edelegate = 'info:edit:add:remove:list',
-		uchild = None, udelegate = 'info:edit:add:remove:list', **kwargs):
-		if not child : child = self
-		if not user: user = child.owner.id
+	def add(self, user = None, parent = None, ecolor = 'all', action = 'add', owner = True, custom = False, override = [],
+		inherit = ['info', 'edit', 'add', 'remove', 'list', 'link', 'unlink'], auth = 'N', color = 'all', ucolor = 'owner', grroot = None, level = 0, grlevel = 0, **kwargs):
+		if not parent : parent = self.parent
+		if not user: user = self.owner.id
 		
-		if(self.guard(user = user, action = action, iaction = iaction, color = color, icolor = icolor)):
-			if not child.id: 
-				if not child.level:
-					child.level = self.level + 1 if self.level >= 0 else self.level - 1
-				if not child.grlevel:
-					child.grlevel = self.grlevel
-					child.grroot = self.grroot
-				if not child.authorize:
-					child.authorize = self.authorize
+		if(parent.guard(user = user, action = action, owner = owner, custom = custom)):
+			if not self.id: 
 				self.save()
-				if not uchild: uchild = child.owner
-				uedge = Edge(parent = child, child = uchild, type = 'user', color = 'owner', delegate = udelegate)
+				
+				# inherit guards
+				gs = Guard.objects.filter(node = parent, action__in = inherit)
+				for g in gs:
+					gn = Guard(node = self, auth = g.auth, action = g.action, color = g.color, ucolor = g.ucolor, grroot = g.grroot, 
+						level = g.level + 1 if g.level >= 0 else g.level -1, grlevel = g.grlevel)
+					gn.save()
+				
+				# override guards
+				for action in override:
+					gn = Guard(node = self, auth = auth, action = action, color = color, ucolor = ucolor, grroot = grroot, level = level, grlevel = grlevel)
+					gn.save()
+				
+				# create owner link
+				uedge = Edge(parent = self, child = self.owner, type = 'user', color = 'owner.link')
 				uedge.save()
-			edge = Edge(parent = self, child = child, type = child.type, color = ecolor,  delegate = edelegate)
+			
+			# add child
+			edge = Edge(parent = parent, child = self, type = self.type, color = ecolor)
 			edge.save()
-			self.count = models.F('count') + 1;
-			self.save()
+			parent.count = models.F('count') + 1;
+			parent.save()
 		else:
 			raise Node.GuardException
 	
-	def remove(self, user = -1, action = 'remove', iaction = 'remove', color = 'owner', icolor = 'all', parent = None,  **kwargs):
-		if(self.guard(user = user, action = action, iaction = iaction, color = color, icolor = icolor)):
+	def link(self, user = -1, action = 'link', owner = True, custom = False, parent = None, color = 'all.link',  **kwargs):
+		if(self.guard(user = user, action = action, owner = owner, custom = custom)):
 			if not parent: parent = self.parent
+			edge = Edge(parent = parent, child = self, type = self.type, color = color)
+			edge.save()
+			sef.parent.links = models.F('links') + 1
+			self.parent.save()
+		else:
+			raise Node.GuardException
+			
+	def remove(self, user = -1, action = 'remove', owner = True, custom = False,  **kwargs):
+		if(self.guard(user = user, action = action, owner = owner, custom = custom)):
 			try: 
-				Edge.objects.get(parent = parent, child = self).delete()
-			except Exception, e: pass
+				Edge.objects.filter(parent = self.parent, child = self).delete()
+			except Exception: pass
 			try:
 				Edge.objects.filter(parent = self, type = 'user').delete()
-			except Exception, e: pass
-			parent.count = models.F('count') - 1;
-			parent.save();
+			except Exception: pass
+			sef.parent.count = models.F('count') - 1;
+			self.parent.save();
 			self.delete()
 		else:
 			raise Node.GuardException
+		
+	def unlink(self, user = -1, action = 'unlink', owner = True, custom = False, parent = None,  **kwargs):
+		if(self.guard(user = user, action = action, owner = owner, custom = custom)):
+			if not parent: parent = self.parent
+			try: 
+				Edge.objects.filter(parent = parent, child = self).delete()
+			except Exception: pass
+			sef.parent.links = models.F('links') - 1
+			self.parent.save()
+		else:
+			raise Node.GuardException
 	
-	def list(self, user = -1, action = 'list', iaction = 'list', color = 'owner', icolor = 'all', type = 'general', lcolor = 'all', *args, **kwargs):
-		if(self.guard(user = user, action = action, iaction = iaction, color = color, icolor = icolor)):
+	def list(self, user = -1, action = 'list', owner = True, custom = False, type = 'general', lcolor = 'all', *args, **kwargs):
+		if(self.guard(user = user, action = action, owner = owner, custom = custom)):
 			return Node.objects.filter(id__in = Edge.objects.filter(parent = self, type = type, color__contains = lcolor).values_list('child'))
 		else:
 			raise Node.GuardException
 	
-	def edit(self, user = -1, action = 'edit', iaction = 'edit', color = 'owner', icolor = 'all', **kwargs):
-		if(self.guard(user = user, action = action, iaction = iaction, color = color, icolor = icolor)):
+	def edit(self, user = -1, action = 'edit', owner = True, custom = False, **kwargs):
+		if(self.guard(user = user, action = action, owner = owner, custom = custom)):
 			try:
 				self.author = Node.objects.get(id = kwargs.get('user', -1)).name
 			except: pass
@@ -75,8 +104,8 @@ class Node(models.Model):
 		else:
 			raise Node.GuardException
 	
-	def info(self, user = -1, action = 'info', iaction = 'info', color = 'owner', icolor = 'all', **kwargs):
-		if(self.guard(user = user, action = action, iaction = iaction, color = color, icolor = icolor)):
+	def info(self, user = -1, action = 'info', owner = True, custom = False, **kwargs):
+		if(self.guard(user = user, action = action, owner = owner, custom = custom)):
 			return self
 		else:
 			raise Node.GuardException
@@ -96,7 +125,7 @@ class Node(models.Model):
 				# result = custom(id, user, action)
 				# if result: return True
 			
-			if(g.type = 'G'):
+			if g.auth == 'G':
 				level = g.grlevel
 				id = g.grroot
 			else:
@@ -108,7 +137,7 @@ class Node(models.Model):
 			nodes = [id]
 			
 			# recursively check over delegation graph
-			while(level):
+			while level:
 				level -= 1;
 				try:
 					# find owner
