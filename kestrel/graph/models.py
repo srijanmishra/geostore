@@ -1,5 +1,5 @@
 from django.db import models
-import exceptions
+from kestrel.core import utils
 
 ROOT_ID = 0
 
@@ -14,15 +14,15 @@ class Node(models.Model):
 	ctime = models.DateTimeField(auto_now_add = True)
 	mtime = models.DateTimeField(auto_now = True)
 	author = models.CharField(max_length = 256, default = '')
-	owner = models.ForeignKey('self', related_name = 'master', default = ROOT_ID)
-	parent = models.ForeignKey('self', related_name = 'pnode', default = ROOT_ID)
+	owner = models.ForeignKey('self', related_name = 'master', default = ROOT_ID, on_delete = models.SET_NULL, null = True)
+	parent = models.ForeignKey('self', related_name = 'pnode', default = ROOT_ID, on_delete = models.CASCADE, null = True)
 	network = models.ManyToManyField('self', through = 'Edge', related_name = 'endpoints', symmetrical = False)
 	
 	def __unicode__(self):
 		return '%s [%s] [%d]' % (self.name, self.type, self.id)
 	
 	def add(self, user = None, parent = None, ecolor = 'all', action = 'add', owner = True, custom = False, override = [],
-		inherit = ['info', 'edit', 'add', 'remove', 'list', 'link', 'unlink'], auth = 'N', color = 'all', ucolor = 'owner', grroot = None, level = 0, grlevel = 0, **kwargs):
+		inherit = ['info', 'edit', 'add', 'remove', 'list', 'link', 'unlink', 'paint'], auth = 'N', color = 'all', ucolor = 'owner', grroot = None, level = 0, grlevel = 0, **kwargs):
 		if not parent : parent = self.parent
 		if not user: user = self.owner.id
 		
@@ -52,17 +52,17 @@ class Node(models.Model):
 			parent.count = models.F('count') + 1;
 			parent.save()
 		else:
-			raise Node.GuardException
+			raise utils.GuardException
 	
 	def link(self, user = -1, action = 'link', owner = True, custom = False, parent = None, color = 'all.link',  **kwargs):
-		if(self.guard(user = user, action = action, owner = owner, custom = custom)):
-			if not parent: parent = self.parent
+		if not parent: parent = self.parent
+		if(parent.guard(user = user, action = action, owner = owner, custom = custom)):
 			edge = Edge(parent = parent, child = self, type = self.type, color = color)
 			edge.save()
 			sef.parent.links = models.F('links') + 1
 			self.parent.save()
 		else:
-			raise Node.GuardException
+			raise utils.GuardException
 			
 	def remove(self, user = -1, action = 'remove', owner = True, custom = False,  **kwargs):
 		if(self.guard(user = user, action = action, owner = owner, custom = custom)):
@@ -72,11 +72,11 @@ class Node(models.Model):
 			try:
 				Edge.objects.filter(parent = self, type = 'user').delete()
 			except Exception: pass
-			sef.parent.count = models.F('count') - 1;
+			self.parent.count = models.F('count') - 1;
 			self.parent.save();
 			self.delete()
 		else:
-			raise Node.GuardException
+			raise utils.GuardException
 		
 	def unlink(self, user = -1, action = 'unlink', owner = True, custom = False, parent = None,  **kwargs):
 		if(self.guard(user = user, action = action, owner = owner, custom = custom)):
@@ -87,13 +87,13 @@ class Node(models.Model):
 			sef.parent.links = models.F('links') - 1
 			self.parent.save()
 		else:
-			raise Node.GuardException
+			raise utils.GuardException
 	
 	def list(self, user = -1, action = 'list', owner = True, custom = False, type = 'general', lcolor = 'all', *args, **kwargs):
 		if(self.guard(user = user, action = action, owner = owner, custom = custom)):
 			return Node.objects.filter(id__in = Edge.objects.filter(parent = self, type = type, color__contains = lcolor).values_list('child'))
 		else:
-			raise Node.GuardException
+			raise utils.GuardException
 	
 	def edit(self, user = -1, action = 'edit', owner = True, custom = False, **kwargs):
 		if(self.guard(user = user, action = action, owner = owner, custom = custom)):
@@ -102,13 +102,24 @@ class Node(models.Model):
 			except: pass
 			super(Node, self).save()
 		else:
-			raise Node.GuardException
+			raise utils.GuardException
+		
+	def paint(self, user = -1, action = 'paint', owner = True, custom = False, parent = None, color = 'all.link',  **kwargs):
+		if(self.guard(user = user, action = action, owner = owner, custom = custom)):
+			if not parent: parent = self.parent
+			try: 
+				e = Edge.objects.get(parent = parent, child = self)
+				e.color = color
+				e.save()
+			except Exception: pass
+		else:
+			raise utils.GuardException
 	
 	def info(self, user = -1, action = 'info', owner = True, custom = False, **kwargs):
 		if(self.guard(user = user, action = action, owner = owner, custom = custom)):
 			return self
 		else:
-			raise Node.GuardException
+			raise utils.GuardException
 	
 	# KCW+ guard authorize
 	def guard(self, user = -1, action = 'edit', owner = True, custom = False):
@@ -158,21 +169,12 @@ class Node(models.Model):
 		except Guard.DoesNotExist:
 			if(user > -1): return True
 			else: return False
-		
-	# guard exception
-	class GuardException(exceptions.Exception):
-		def __init__(self):
-			return
-		
-		def __str__(self):
-			print  "", "Unable to Authorize"
-
 
 # kestrel graph edge
 class Edge(models.Model):
 	id = models.AutoField(primary_key = True)
-	parent = models.ForeignKey(Node, related_name = 'pedge')
-	child = models.ForeignKey(Node, related_name = 'cedge')
+	parent = models.ForeignKey(Node, related_name = 'pedge', on_delete = models.CASCADE)
+	child = models.ForeignKey(Node, related_name = 'cedge', on_delete = models.CASCADE)
 	type = models.CharField(max_length = 256, default = 'general')
 	color = models.CharField(max_length = 1024, default = 'all')
 	
@@ -192,7 +194,7 @@ class Color(Node):
 
 # kestrel graph guard
 class Guard(models.Model):
-	node = models.ForeignKey(Node, related_name = 'gnode')
+	node = models.ForeignKey(Node, related_name = 'gnode', on_delete = models.CASCADE)
 	auth = models.CharField(max_length = 2, default = 'N') # P=public G=group N=normal
 	action = models.CharField(max_length = 256, default = 'edit')
 	color = models.CharField(max_length = 512, default = 'all')

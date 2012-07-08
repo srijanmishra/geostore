@@ -8,10 +8,12 @@
 		<link rel='shortcut icon' href="/ui/img/geostore/icon.png"/>
 		<title>{% block title %}{% endblock %} - GeoStore</title>
 		
+		<link rel="stylesheet" type="text/css" href="/ui/css/datatable/jquery.dataTables.css" />
 		<link rel="stylesheet" type="text/css" href="/ui/css/geostore-ui.css" />
 		<!--<link rel="stylesheet" type="text/css" href="ui/css/jquery.jtweetsanywhere-1.3.1.css" />-->
 		
 		<script charset="utf-8" type="text/javascript" src="/ui/js/geostore-ui.js"></script>
+		<script type="text/javascript" src="/ui/js/jquery.dataTables.js"></script>
 	</head>
 
 	<body>
@@ -24,7 +26,7 @@
 				</div>
 			</div>
 			
-			<div id="kestrelbase">
+			<div id="kestrelbase" class="data-table-panel">
 {% endif %}{% endblock %}
 
 {% block footer %}{% if not kestrel %}

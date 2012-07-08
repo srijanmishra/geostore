@@ -1,0 +1,65 @@
+{% if valid %}
+	<tr id="directory-{{ directory.id }}"><td>
+		<input type="hidden" name="navigator" value="#/html/" />
+		<input type="hidden" name="url" value="/~{{ request.user.username }}/storage/{{ directory.id }}.html/" />
+		<input type="hidden" name="cntr" value="#kestrelbase" />
+		<a href="/~{{ request.user.username }}/storage/{{ directory.id }}/" class="title collect">{{ directory.name }}</a>
+	</td>{% if regions %}<td>{{ directory.directory.get_root }}</td>{%  endif %}<td>{{ directory.count }}</td><td><span>{{ directory.mtime }}</span>{% if admin %}&nbsp;<span>
+			<input type="hidden" name="navigator" value="#/view/" />
+			<input type="hidden" name="tile" value="#directory-rename-{{ directory.id }}" />
+			<input type="hidden" name="cntr" value="#directory-{{ directory.id }}" />
+			<a href="/~{{ user.username }}/storage/{{ directory.id }}/rename/" class="silent">Rename</a>
+		</span>&middot;<span id="directory-rm-{{ directory.id }}">
+			<input type="hidden" name="navigator" value="#/write/" />
+			<input type="hidden" name="src" value="div" />
+			<input type="hidden" name="sel" value="#directory-rm-{{ directory.id }}" />
+			<input type="hidden" name="pnl" value="#directory-{{ directory.id }}" />
+			<input type="hidden" name="act" value="remove" />
+			<input type="hidden" name="anm" value="none" />
+			<input type="hidden" name="cnf" value="true" />
+			<input type="hidden" name="url" value="/run/storage/rmdir.html" />
+			<input type="hidden" name="id" value="{{ directory.id }}" class="data"/>
+			<input type="hidden" name="parent" value="{{ storage.id }}" class="data"/>
+			<a href="/~{{ user.username }}/storage/{{ directory.id }}/delete/" class="silent">Delete</a>
+			<span class="status"></span>
+		</span>
+	
+		<div id="directory-rename-{{ directory.id }}" class="tile-content" >
+			<div id="directory-rename-panel-{{ directory.id }}" class="panel quick">
+				<div class="menutitle">
+					<span class="title">Rename Directory</span>
+					<span class="menu">
+						<input type="hidden" name="navigator" value="#/view/" />
+						<input type="hidden" name="tile" value="#directory-rename-{{ directory.id }}" />
+						<input type="hidden" name="cntr" value="#directory-{{ directory.id }}" />
+						<input type="hidden" name="none" value="true" />
+						<a href="/~{{ user.username }}/directory/{{ directory.id }}/" class="button silent">Close</a>
+					</span>
+				</div>
+				<input type="hidden" name="navigator" value="#/write/" />
+				<input type="hidden" name="sel" value="#directory-rename-panel-{{ directory.id }}" />
+				<input type="hidden" name="pnl" value="#directory-{{ directory.id }}" />
+				<input type="hidden" name="act" value="replace" />
+				<input type="hidden" name="anm" value="none" />
+				<input type="hidden" name="ln" value="#/view/#directory-rename-{{ directory.id }}/#directory-{{ directory.id }}/~/none/true/" />
+				<form action="/run/storage/rename.html/" method="post" class="collect" enctype="multipart/form-data">
+					{% csrf_token %}
+					<input type="hidden" name="username" value="{{ user.username }}" />
+					<input type="hidden" name="id" value="{{ directory.id }}" />
+					<input type="hidden" name="parent" value="{{ storage.id }}" />
+					<table class="formtable"><tbody>					
+						<tr><td>Directory Name</td>
+						<td><input type="text" name="name" class="required cover" value="{{ directory.name }}"/><span class="error hidden">Invalid Directory Name</span></td></tr>
+						<tr><td></td><td>
+							<input type="submit" value="Rename" class="button"/>
+							<input name="reset" type="reset" value="Reset" class="button"/>
+							<span class="status"></span>
+						</td></tr>
+					</tbody></table>
+				</form>
+			</div>
+		</div>{% endif %}
+	</td></tr>
+{% else %}
+	<tr id="directory"><td><p class="error">{{ errors }}</p></td>{% if regions %}<td></td>{%  endif %}<td></td><td></td></tr>
+{% endif %}

@@ -1,0 +1,199 @@
+{% extends "base.html" %}
+
+{% block title %}Storage - {{ user.username }}{% endblock %}
+
+{% block kestreltitle %}Storage : ~{{ user.username }}{{storage.path}}{{ storage.name }}/{% endblock %}
+
+{% block kestrelmenu %}
+<ul class="hover-menu vertical fleft">
+	{% if not regions %}
+	<li>
+		<input type="hidden" name="navigator" value="#/html/" />
+		<input type="hidden" name="url" value="/~{{ request.user.username }}/storage/{{ storage.parent.id }}.html/" />
+		<input type="hidden" name="cntr" value="#kestrelbase" />
+		<a href="/~{{ request.user.username }}/storage/{{ storage.parent.id }}/" class="title collect">Up</a>
+	</li>
+	{% endif %}
+	<li>
+		<input type="hidden" name="navigator" value="#/view/" />
+		<input type="hidden" name="tile" value="#directory-add-{{ storage.id }}" />
+		<input type="hidden" name="cntr" value="#storage-list-{{ storage.id }}" />
+		<a href="/~{{ user.username }}/storage/{{ storage.id }}/add/" class="silent">New {% if regions %}Bucket{% else %}Directory{%  endif %}</a>
+	</li>
+	{% if not regions %}
+	<li>
+		<input type="hidden" name="navigator" value="#/view/" />
+		<input type="hidden" name="tile" value="#file-add-{{ storage.id }}" />
+		<input type="hidden" name="cntr" value="#storage-list-{{ storage.id }}" />
+		<a href="/~{{ user.username }}/storage/{{ storage.id }}/new/" class="silent">New File</a>
+	</li>
+	<li>
+		<input type="hidden" name="navigator" value="#/view/" />
+		<input type="hidden" name="tile" value="#file-upload-{{ storage.id }}" />
+		<input type="hidden" name="cntr" value="#storage-list-{{ storage.id }}" />
+		<a href="/~{{ user.username }}/storage/{{ storage.id }}/upload/" class="silent">Upload File</a>
+	</li>
+	{% endif %}
+</ul>
+
+<ul class="hover-menu vertical fright">
+	<li>
+		<input type="hidden" name="navigator" value="#/html/" />
+		<input type="hidden" name="url" value="/~{{ request.user.username }}/storage/{{ storage.id }}.html/" />
+		<input type="hidden" name="cntr" value="#kestrelbase" />
+		<a href="/~{{ request.user.username }}/storage/{{ storage.id }}/" class="title collect">Refresh</a>
+	</li>
+	<li>
+		<input type="hidden" name="navigator" value="#/html/" />
+		<input type="hidden" name="url" value="/~{{ request.user.username }}/storage/{{ storage.id }}/properties.html/" />
+		<input type="hidden" name="cntr" value="#kestrelbase" />
+		<a href="/~{{ request.user.username }}/storage/{{ storage.id }}/properties/" class="title collect">Properties</a>
+	</li>
+</ul>
+{% endblock %}
+
+{% block kestrelpage %}
+<div id="storage-list-{{ storage.id }}" class="data-table-panel">
+	<div id="directory-add-{{ storage.id }}" class="tile-content" {% if add %}style="display: block"{% endif %}>
+		<div id="directory-add-panel-{{ storage.id }}" class="panel quick">
+			<div class="menutitle">
+				<span class="title">Create New {% if regions %}Bucket{% else %}Directory{%  endif %} </span>
+				<span class="menu">
+					<input type="hidden" name="navigator" value="#/view/" />
+					<input type="hidden" name="tile" value="#directory-add-{{ storage.id }}" />
+					<input type="hidden" name="cntr" value="#storage-list-{{ storage.id }}" />
+					<input type="hidden" name="none" value="true" />
+					<a href="/~{{ user.username }}/storage/{{ storage.id }}/" class="button silent">Close</a>
+				</span>
+			</div>
+			<input type="hidden" name="navigator" value="#/write/" />
+			<input type="hidden" name="sel" value="#directory-add-panel-{{ storage.id }}" />
+			<input type="hidden" name="pnl" value="#storages-{{ storage.id }}" />
+			<input type="hidden" name="act" value="first" />
+			<input type="hidden" name="anm" value="none" />
+			<input type="hidden" name="ln" value="#/view/#directory-add-{{ storage.id }}/#storage-list-{{ storage.id }}/~/none/true/" />
+			<form action="/run/storage/add.html/" method="post" class="collect">
+				{% csrf_token %}
+				<input type="hidden" name="username" value="{{ user.username }}" />
+				<input type="hidden" name="id" value="{{ storage.id }}" />
+				<table class="formtable part15"><tbody>					
+					{% if regions %}
+					<tr><td>Bucket Name</td>
+					<td><input type="text" name="name" class="required cover" /><span class="error hidden">Invalid Bucket Name</span></td></tr>
+					<tr><td>Region</td>
+					<td><select name="root" >
+						{% for r in regions %}
+						<option value="{{ forloop.counter0 }}" >{{ r }}</option>
+						{% endfor %}
+					</select></td></tr>
+					{% else %}
+					<tr><td>Directory Name</td>
+					<td><input type="text" name="name" class="required cover" /><span class="error hidden">Invalid Directory Name</span></td></tr>
+					{% endif %}
+					<tr><td></td><td>
+						<input type="submit" value="Create" class="button"/>
+						<input name="reset" type="reset" value="Reset" class="button"/>
+						<span class="status"></span>
+					</td></tr>
+				</tbody></table>
+			</form>
+		</div>
+	</div>
+	
+	{% if not regions %}
+	<div id="file-add-{{ storage.id }}" class="tile-content" {% if add %}style="display: block"{% endif %}>
+		<div id="file-add-panel-{{ storage.id }}" class="panel quick">
+			<div class="menutitle">
+				<span class="title">Create New File</span>
+				<span class="menu">
+					<input type="hidden" name="navigator" value="#/view/" />
+					<input type="hidden" name="tile" value="#file-add-{{ storage.id }}" />
+					<input type="hidden" name="cntr" value="#storage-list-{{ storage.id }}" />
+					<input type="hidden" name="none" value="true" />
+					<a href="/~{{ user.username }}/storage/{{ storage.id }}/" class="button silent">Close</a>
+				</span>
+			</div>
+			<input type="hidden" name="navigator" value="#/write/" />
+			<input type="hidden" name="sel" value="#file-add-panel-{{ storage.id }}" />
+			<input type="hidden" name="pnl" value="#storages-{{ storage.id }}" />
+			<input type="hidden" name="act" value="first" />
+			<input type="hidden" name="anm" value="none" />
+			<input type="hidden" name="ln" value="#/view/#file-add-{{ storage.id }}/#storage-list-{{ storage.id }}/~/none/true/" />
+			<form action="/run/storage/upload.html/" method="post" class="collect">
+				{% csrf_token %}
+				<input type="hidden" name="username" value="{{ user.username }}" />
+				<input type="hidden" name="parent" value="{{ storage.id }}" />
+				<table class="formtable part15"><tbody>					
+					<tr><td>File Name</td>
+					<td><input type="text" name="name" class="required cover" /><span class="error hidden">Invalid File Name</span></td></tr>
+					<tr><td></td><td>
+						<input type="submit" value="Create" class="button"/>
+						<input name="reset" type="reset" value="Reset" class="button"/>
+						<span class="status"></span>
+					</td></tr>
+				</tbody></table>
+			</form>
+		</div>
+	</div>
+	
+	<div id="file-upload-{{ storage.id }}" class="tile-content" {% if upload %}style="display: block"{% endif %}>
+		<div id="file-upload-panel-{{ storage.id }}" class="panel quick">
+			<div class="menutitle">
+				<span class="title">Upload File</span>
+				<span class="menu">
+					<input type="hidden" name="navigator" value="#/view/" />
+					<input type="hidden" name="tile" value="#file-upload-{{ storage.id }}" />
+					<input type="hidden" name="cntr" value="#storage-list-{{ storage.id }}" />
+					<input type="hidden" name="none" value="true" />
+					<a href="/~{{ user.username }}/storage/{{ storage.id }}/" class="button silent">Close</a>
+				</span>
+			</div>
+			<input type="hidden" name="navigator" value="#/write/" />
+			<input type="hidden" name="sel" value="#file-upload-panel-{{ storage.id }}" />
+			<input type="hidden" name="pnl" value="#storages-{{ storage.id }}" />
+			<input type="hidden" name="type" value="json" />
+			<input type="hidden" name="act" value="first" />
+			<input type="hidden" name="anm" value="none" />
+			<input type="hidden" name="iframe" value="true" />
+			<form action="/run/storage/upload.json/" method="post" class="collect" enctype="multipart/form-data">
+				{% csrf_token %}
+				<input type="hidden" name="username" value="{{ user.username }}" />
+				<input type="hidden" name="parent" value="{{ storage.id }}" />
+				<table class="formtable part15"><tbody>					
+					<tr><td>File</td>
+					<td><input type="file" name="file" class="required" /><span class="error hidden">Invalid File</span></td></tr>
+					<tr><td></td><td>
+						<input type="submit" value="Upload" class="button"/>
+						<input name="reset" type="reset" value="Reset" class="button"/>
+						<span class="status"></span>
+					</td></tr>
+				</tbody></table>
+			</form>
+		</div>
+	</div>
+	{% endif %}
+	
+	<div id="storage-list-panel-{{ storage.id }}" class="panel">
+		{% if regions %}
+		<table class="table-list datatable"><thead class="left">
+		<tr><th>Name</th><th>Region</th><th>Objects</th><th>Last Modified</th></tr>
+		</thead><tbody id="storages-{{storage.id}}">
+			{% for directory in directories %}
+				{% include 'storage/directory.html' %}
+			{% endfor %}
+		</tbody></table>
+		{% else %}
+		<table class="table-list datatable"><thead class="left">
+		<tr><th>Name</th><th>Objects</th><th>Last Modified</th></tr>
+		</thead><tbody id="storages-{{storage.id}}">
+			{% for directory in directories %}
+				{% include 'storage/directory.html' %}
+			{% endfor %}
+			{% for file in files %}
+				{% include 'storage/file.html' %}
+			{% endfor %}
+		</tbody></table>
+		{%  endif %}
+	</div>
+</div>
+{% endblock %}

@@ -8,7 +8,7 @@ import kestrel.core.response
 #
 # output request dict Request [kwargs] optional
 #
-def run(request, mappings = {}, parse = 'post', service = None, operation = None, id = None, format = None, **kwargs):
+def run(request, mappings = {}, parse = 'post', service = None, operation = None, format = None, **kwargs):
 	if parse == 'post':
 		data = request.POST
 	elif parse == 'get':

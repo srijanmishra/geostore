@@ -51,7 +51,7 @@ def profile(request, **kwargs):
 			data['success'] = True
 			data['user'] = u
 			data['person'] = p
-			data['admin'] = p.guard(user = user, action = 'edit', iaction = 'edit', color = 'owner', icolor = 'all')
+			data['admin'] = p.guard(user = user, action = 'edit')
 		except Exception:
 			data['errors'] = 'Invalid username'
 	else:

@@ -1,7 +1,7 @@
 /* main layout */
 #kestrelwindow { position: absolute; height: 100%; }
 #kestrelhead { position: fixed; top:0px; left: 0px; width: 200px; border-bottom: 1px solid #CCC; } 
-.kestreltitle { position: fixed; top:0px; left: 200px; right: 0px; border-bottom: 1px solid #CCC; }
+.kestreltitle { position: fixed; top:0px; left: 200px; right: 0px; border-bottom: 1px solid #CCC; height: 62px; }
 .kestrelmenu { position: fixed; top:63px; left: 200px; right: 0px; border-bottom: 1px solid #CCC; }
 .kestrelcontent { position: fixed; top:108px; left: 0px; right: 0px; bottom: 49px; } 
 .kestrelbar { position: fixed; top:108px; left: 0px; right: 200px; bottom: 49px; } 
@@ -19,11 +19,13 @@
 .kestreltitle .frame { padding: 10px; }
 .kestrelmenu { padding: 8px 12px 8px 10px; }
 .kestreluser { margin: 14px 12px 12px; }
-.kestrelpage { overflow: auto; }
+.kestrelpage { overflow: auto; padding: 8px 16px 8px 12px; }
 
 /* general styles */
 .fence { border: solid 1px #DDD; border-radius: 3px 3px 3px 3px; -moz-border-radius: 3px 3px 3px 3px; -webkit-border-radius: 3px 3px 3px 3px; }
-.menutitle { font-family: "Segoi UI Light", sans-serif; font-size: 18px; padding: 8px; border-bottom: 1px dashed #CCC; }
+.menutitle { padding: 8px; border-bottom: 1px dashed #CCC; overflow: auto; }
+.menutitle .title { font-family: "Segoi UI Light", sans-serif; font-size: 18px; float: left; }
+.menutitle .menu a { float: right; display: block; padding: 2.5px 10px; }
 
 /* minibutton styles */
 .minibutton { border: solid 1px #FFF; background: white; margin: 0 0 0 5px; padding: 1px; border-radius: 3px 3px 3px 3px; -moz-border-radius: 3px 3px 3px 3px; -webkit-border-radius: 3px 3px 3px 3px; }

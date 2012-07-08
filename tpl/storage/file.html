@@ -1,0 +1,128 @@
+{% if valid %}
+	<tr id="file-{{ file.id }}"><td>
+		<a href="/file/{{ file.id }}/" class="title" target="_blank">{{ file.name }}</a>
+	</td><td>{{ file.file.mime }}</td><td class="nowrap"><span>{{ file.mtime }}</span>&nbsp;{% if file.file.get_public_url %}<span>
+			<input type="hidden" name="navigator" value="#/view/" />
+			<input type="hidden" name="tile" value="#file-link-{{ file.id }}" />
+			<input type="hidden" name="cntr" value="#file-{{ file.id }}" />
+			<a href="/~{{ user.username }}/storage/{{ file.id }}/link/" class="silent">Public URL</a>
+		</span>&middot;{% endif %}{% if admin %}<span>
+			<input type="hidden" name="navigator" value="#/view/" />
+			<input type="hidden" name="tile" value="#file-change-{{ file.id }}" />
+			<input type="hidden" name="cntr" value="#file-{{ file.id }}" />
+			<a href="/~{{ user.username }}/storage/{{ file.id }}/change/" class="silent">Change</a>
+		</span>&middot;<span>
+			<input type="hidden" name="navigator" value="#/view/" />
+			<input type="hidden" name="tile" value="#file-rename-{{ file.id }}" />
+			<input type="hidden" name="cntr" value="#file-{{ file.id }}" />
+			<a href="/~{{ user.username }}/storage/{{ file.id }}/rename/" class="silent">Rename</a>
+		</span>&middot;<span id="file-rm-{{ file.id }}">
+			<input type="hidden" name="navigator" value="#/write/" />
+			<input type="hidden" name="src" value="div" />
+			<input type="hidden" name="sel" value="#file-rm-{{ file.id }}" />
+			<input type="hidden" name="pnl" value="#file-{{ file.id }}" />
+			<input type="hidden" name="act" value="remove" />
+			<input type="hidden" name="anm" value="none" />
+			<input type="hidden" name="cnf" value="true" />
+			<input type="hidden" name="url" value="/run/storage/remove.html" />
+			<input type="hidden" name="id" value="{{ file.id }}" class="data"/>
+			<input type="hidden" name="parent" value="{{ storage.id }}" class="data"/>
+			<a href="/~{{ user.username }}/storage/{{ file.id }}/delete/" class="silent">Delete</a>
+			<span class="status"></span>
+		</span>
+		
+		<div id="file-change-{{ file.id }}" class="tile-content" >
+			<div id="file-change-panel-{{ file.id }}" class="panel quick">
+				<div class="menutitle">
+					<span class="title">Change File</span>
+					<span class="menu">
+						<input type="hidden" name="navigator" value="#/view/" />
+						<input type="hidden" name="tile" value="#file-change-{{ file.id }}" />
+						<input type="hidden" name="cntr" value="#file-{{ file.id }}" />
+						<input type="hidden" name="none" value="true" />
+						<a href="/~{{ user.username }}/file/{{ file.id }}/" class="button silent">Close</a>
+					</span>
+				</div>
+				<input type="hidden" name="navigator" value="#/write/" />
+				<input type="hidden" name="sel" value="#file-change-panel-{{ file.id }}" />
+				<input type="hidden" name="pnl" value="#file-{{ file.id }}" />
+				<input type="hidden" name="type" value="json" />
+				<input type="hidden" name="act" value="replace" />
+				<input type="hidden" name="anm" value="none" />
+				<input type="hidden" name="iframe" value="true" />
+				<input type="hidden" name="ln" value="#/view/#file-change-{{ file.id }}/#file-{{ file.id }}/~/none/true/" />
+				<form action="/run/storage/change.json/" method="post" class="collect" enctype="multipart/form-data">
+					{% csrf_token %}
+					<input type="hidden" name="username" value="{{ user.username }}" />
+					<input type="hidden" name="id" value="{{ file.id }}" />
+					<input type="hidden" name="parent" value="{{ storage.id }}" />
+					<table class="formtable part15"><tbody>					
+						<tr><td>File</td>
+						<td><input type="file" name="file" class="required" /><span class="error hidden">Invalid File</span></td></tr>
+						<tr><td></td><td>
+							<input type="submit" value="Change" class="button"/>
+							<input name="reset" type="reset" value="Reset" class="button"/>
+							<span class="status"></span>
+						</td></tr>
+					</tbody></table>
+				</form>
+			</div>
+		</div>
+		
+		<div id="file-rename-{{ file.id }}" class="tile-content" >
+			<div id="file-rename-panel-{{ file.id }}" class="panel quick">
+				<div class="menutitle">
+					<span class="title">Rename File</span>
+					<span class="menu">
+						<input type="hidden" name="navigator" value="#/view/" />
+						<input type="hidden" name="tile" value="#file-rename-{{ file.id }}" />
+						<input type="hidden" name="cntr" value="#file-{{ file.id }}" />
+						<input type="hidden" name="none" value="true" />
+						<a href="/file/{{ file.id }}/" class="button silent">Close</a>
+					</span>
+				</div>
+				<input type="hidden" name="navigator" value="#/write/" />
+				<input type="hidden" name="sel" value="#file-rename-panel-{{ file.id }}" />
+				<input type="hidden" name="pnl" value="#file-{{ file.id }}" />
+				<input type="hidden" name="act" value="replace" />
+				<input type="hidden" name="anm" value="none" />
+				<input type="hidden" name="ln" value="#/view/#file-rename-{{ file.id }}/#file-{{ file.id }}/~/none/true/" />
+				<form action="/run/storage/change.html/" method="post" class="collect" enctype="multipart/form-data">
+					{% csrf_token %}
+					<input type="hidden" name="username" value="{{ user.username }}" />
+					<input type="hidden" name="id" value="{{ file.id }}" />
+					<input type="hidden" name="parent" value="{{ storage.id }}" />
+					<table class="formtable part15"><tbody>					
+						<tr><td>File Name</td>
+						<td><input type="text" name="name" class="required cover" value="{{ file.name }}"/><span class="error hidden">Invalid File Name</span></td></tr>
+						<tr><td></td><td>
+							<input type="submit" value="Rename" class="button"/>
+							<input name="reset" type="reset" value="Reset" class="button"/>
+							<span class="status"></span>
+						</td></tr>
+					</tbody></table>
+				</form>
+			</div>
+		</div>
+		{% endif %}
+		{% if file.file.get_public_url %}
+		<div id="file-link-{{ file.id }}" class="tile-content" >
+			<div id="file-link-panel-{{ file.id }}" class="panel quick">
+				<div class="menutitle">
+					<span class="title">File Public URL</span>
+					<span class="menu">
+						<input type="hidden" name="navigator" value="#/view/" />
+						<input type="hidden" name="tile" value="#file-link-{{ file.id }}" />
+						<input type="hidden" name="cntr" value="#file-{{ file.id }}" />
+						<input type="hidden" name="none" value="true" />
+						<a href="/~{{ user.username }}/file/{{ file.id }}/" class="button silent">Close</a>
+					</span>
+				</div>
+				<p><a href="{{ file.file.get_public_url }}{{ storage.path }}{{ storage.name }}/{{ file.name }}" target="_blank">{{ file.file.get_public_url }}{{ storage.path }}{{ storage.name }}/{{ file.name }}</a></p>
+			</div>
+		</div>
+		{% endif %}
+	</td></tr>
+{% else %}
+	<tr id="file"><td><p class="error">{{ errors }}</p></td><td></td><td></td></tr>
+{% endif %}

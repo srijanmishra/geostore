@@ -77,25 +77,28 @@ div.panel .subhead { font-size: large; }
 div.panel .subline { font-size: 0.8em; }
 div.panel .field { display: block; padding-right: 1em; }
 div.panel input,textarea,select,button { border: solid 1px #CCC; padding: 5px; /*border-radius: 3px 3px 3px 3px; -moz-border-radius: 3px 3px 3px 3px; -webkit-border-radius: 3px 3px 3px 3px;*/ }
-div.panel .button { border: solid 1px #CCC; color: black; font-weight: bold; background-color: #EEE; padding: 4px 15px; /*border-radius: 3px 3px 3px 3px; -moz-border-radius: 3px 3px 3px 3px; -webkit-border-radius: 3px 3px 3px 3px;*/ }
+div.panel .button { border: solid 1px #CCC; color: black; font-weight: bold; background-color: #EEE; padding: 4px 12px; /*border-radius: 3px 3px 3px 3px; -moz-border-radius: 3px 3px 3px 3px; -webkit-border-radius: 3px 3px 3px 3px;*/ }
 div.panel .button:hover { background-color: #914ec4; border: solid 1px #541c7d; color: white; cursor: pointer; }
 div.panel option { margin: 2px; }
 div.panel fieldset { border: solid 1px; }
 div.panel input:focus,textarea:focus,select:focus,button:focus { border-color: #555; }
 div.panel br { font-size : 0.5em; }
 
+/* quick panel styles */
+div.quick { border: solid 1px #DDD; border-radius: 3px 3px 3px 3px; -moz-border-radius: 3px 3px 3px 3px; -webkit-border-radius: 3px 3px 3px 3px; margin: 10px 0; }
+
 /* table-list styles */
 .table-list { width: 100%; white-space: normal; border-collapse:collapse; }
 .table-list th { padding: 5px; color: black; text-align: left; font-size: 16px; }
-.table-list>tbody>tr { /*background: #ECF3F7; */border-bottom: 1px solid #CCCCCC; }
+.table-list>tbody>tr { /*background: #ECF3F7; */border-bottom: 1px solid #555; }
 .table-list td { padding: 5px; vertical-align: top; }
-.table-list>tbody>tr>td:first-child { width: 50px; text-align: right; }
+.table-list.first>tbody>tr>td:first-child { width: 50px; text-align: right; }
 .table-list .title { font-weight: bold; font-size: 16px; }
 .table-list .desc { font-style: normal !important; color: black; font-size: 12px; }
 .table-list .bigtile { padding: 5px; }
 .table-list .tile { padding: 5px; }
-.table-list a { color: darkblue !important; }
-.table-list a:hover { color: blue !important; }
+.table-list a { color: darkblue; }
+.table-list a:hover { color: blue; }
 
 /* thumb styles */
 .thumb { max-width: 100%; }

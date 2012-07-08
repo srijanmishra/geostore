@@ -1,6 +1,7 @@
 # Django settings for orbitnote project.
 import os.path
 
+ROOT = 'C:/Program Files (x86)/Apache Software Foundation/Apache2.2/htdocs/geostore'
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -71,7 +72,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-	'C:/Program Files (x86)/Apache Software Foundation/Apache2.2/htdocs/geostore/ui',
+	ROOT + '/ui',
 )
 
 # List of finder classes that know how to find static files in
@@ -95,7 +96,7 @@ TEMPLATE_LOADERS = (
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+   # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
@@ -163,8 +164,22 @@ PEOPLE_RESET_BODY = 'Hello %(username)s,\nYour GeoStore password was reset succe
 
 # kestrel  storage settings
 STORAGE_ID = 0
-STORAGE_PRIVATE_ROOT = 'C:/Program Files (x86)/Apache Software Foundation/Apache2.2/htdocs/geostore/storage'
-STORAGE_PUBLIC_ROOT = 'C:/Program Files (x86)/Apache Software Foundation/Apache2.2/htdocs/geostore/ui/files'
+STORAGE_BUCKET_ID = 1
+STORAGE_ROOT = (
+	ROOT + '/ui/files',
+	ROOT + '/storage/slave1',
+	ROOT + '/storage/slave2',
+)
+STORAGE_NAMES = (
+	'Standard (Master)',
+	'Slave 1',
+	'Slave 2',
+)
+STORAGE_URLS = (
+	ROOTPATH + '/ui/files',
+	False,
+	False
+)
 
 # email settings
 EMAIL_HOST = 'smtp.gmail.com'

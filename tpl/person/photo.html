@@ -1,7 +1,5 @@
 {% extends "kestrel.html" %}
 
-{% block title %}{{ user.username }}{% endblock %}
-
 {% block kestreltitle %}Change Photo : {{ user.username }}{% endblock %}
 
 {% block kestrelmenu %}
@@ -10,19 +8,19 @@
 		<input type="hidden" name="navigator" value="#/view/" />
 		<input type="hidden" name="tile" value="#person-view-{{ person.id }}" />
 		<input type="hidden" name="cntr" value="#kestrelbase" />
-		<a href="/~{{ user.username }}/" class="collect">View Profile</a>
+		<a href="/~{{ user.username }}/" class="silent">View Profile</a>
 	</li>
 	<li>
 		<input type="hidden" name="navigator" value="#/view/" />
 		<input type="hidden" name="tile" value="#person-edit-{{ person.id }}" />
 		<input type="hidden" name="cntr" value="#kestrelbase" />
-		<a href="/~{{ user.username }}/" class="collect">Edit Profile</a>
+		<a href="/~{{ user.username }}/" class="silent">Edit Profile</a>
 	</li>
 	<li>
 		<input type="hidden" name="navigator" value="#/view/" />
 		<input type="hidden" name="tile" value="#person-photo-{{ person.id }}" />
 		<input type="hidden" name="cntr" value="#kestrelbase" />
-		<a href="/~{{ user.username }}/" class="collect">Change Password</a>
+		<a href="/~{{ user.username }}/" class="silent">Change Password</a>
 	</li>
 </ul>
 {% endblock %}

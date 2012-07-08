@@ -17,6 +17,7 @@ class Person(Node):
 	photo = models.OneToOneField(File)
 	activation_key = models.CharField(max_length = 40, null = True)
 	key_expires = models.DateTimeField(null = True)
+	credits = models.IntegerField(default = 50)
 	
 	def verify(self):
 		salt = sha.new(str(random.random())).hexdigest()[:5]
@@ -49,7 +50,7 @@ class Person(Node):
 def create_person(sender, instance, created, **kwargs):
     if created:
 		parent = Node.objects.get(id = settings.PEOPLE_ID)
-		file = File(name = instance.username + '.png', author = instance.username, parent = parent)
+		file = File(name = instance.username + '.png', author = instance.username, parent = parent, mime = 'image/png')
 		file.add(user = settings.PEOPLE_ID)
 		person = Person(user = instance, name = instance.username, type = 'user', author = instance.username, parent = parent, photo = file)
 		person.add(user = settings.PEOPLE_ID)

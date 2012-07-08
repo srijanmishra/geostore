@@ -20,6 +20,7 @@ def edit(request, csrfmiddlewaretoken, username, first_name, last_name,
 			p.dateofbirth = dateofbirth
 		try: 
 			p.edit(user = user)
+			u.save()
 			data['valid'] = True
 		except: 
 			data['errors'] = 'Not Authorized'
@@ -73,16 +74,17 @@ def photo(request, csrfmiddlewaretoken, username, photo = None,  _ts = None, **k
 		u = User.objects.get(username = username)
 		p = u.get_profile()
 		p.photo.file = request.FILES['file']
-		try: 
-			p.photo.save()
-			data['valid'] = True
-		except: 
-			data['errors'] = 'Not Authorized'
+		p.photo.mime = request.FILES['file'].content_type
+		#try: 
+		p.photo.edit(user = user)
+		data['valid'] = True
+	#except: 
+		data['errors'] = 'Not Authorized'
 
 		data['user'] = u
 		data['person'] = p
 		data['admin'] = 1
-	except Exception:
+	except User.DoesNotExist:
 		data['errors'] = 'Invalid User'
 		data['photo'] = not data['valid']	data['view'] = data['valid']
 	kwargs['data'] = data

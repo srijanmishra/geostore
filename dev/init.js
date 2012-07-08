@@ -60,6 +60,12 @@ FireSpark.smart.constant.tileuiprefix = '#kestrelbase'
 FireSpark.smart.constant.readflow = function(){ 
 	return [{ 
 		service : FireSpark.ui.service.ElementContent,
+		input : { element : 'cntr', animation : 'anm', duration : 'dur', delay : 'dly' },
+		data : '<span></span>',
+		action : 'all',
+		select : true
+	},{ 
+		service : FireSpark.ui.service.ElementContent,
 		input : { element : 'pnl', animation : 'anm', duration : 'dur', delay : 'dly', action : 'act'  },
 		select : true
 	}];
@@ -78,6 +84,7 @@ $(document).ready(function(){
 	Snowblozm.Registry.add('#bind', FireSpark.ui.workflow.TemplateBind);
 	Snowblozm.Registry.add('#ui', FireSpark.smart.workflow.InterfaceLoad);
 	Snowblozm.Registry.add('#view', FireSpark.smart.workflow.InterfaceTile);
+	Snowblozm.Registry.add('#toggle', FireSpark.ui.service.ElementToggle);
 	Snowblozm.Registry.add('#sync', FireSpark.smart.service.InterfaceUrl);
 	Snowblozm.Registry.add('#login', FireSpark.core.workflow.WindowLogin);
 	Snowblozm.Registry.add('#refresh', FireSpark.core.service.WindowReload);
@@ -89,6 +96,11 @@ $(document).ready(function(){
 		event : 'click',
 		attribute : 'href',
 		nav : true
+	},{
+		service : FireSpark.smart.service.InterfaceCollect,
+		selector : 'a.silent',
+		event : 'click',
+		attribute : 'href'
 	},{
 		service : FireSpark.smart.service.InterfaceCollect,
 		selector : 'form.collect',
@@ -166,6 +178,33 @@ $(document).ready(function(){
 				scrollTop: 0
 			}, 850);
 			return false;
+	});
+	
+	/**
+	 *	@datatable dataTable
+	**/
+	$.extend($.fn.dataTable.defaults, {
+		//bSort: false,
+		aaSorting : [],
+		sPaginationType: "full_numbers",
+		iDisplayLength: 50,
+		aLengthMenu: [[50, 100, 150, -1], [50, 100, 150, "All"]]
+	});
+	
+	$('.data-table-panel').live('load', function(){
+		var $el = $(this).find('table.datatable');
+		if(!$el.hasClass('datatable-done')){
+			$el.dataTable().addClass('datatable-done');
+		}
+		return false;
+	});
+	
+	$('.data-table-panel').each(function(){
+		var $el = $(this).find('table.datatable');
+		if(!$el.hasClass('datatable-done')){
+			$el.dataTable().addClass('datatable-done');
+		}
+		return true
 	});
 	
 	/**

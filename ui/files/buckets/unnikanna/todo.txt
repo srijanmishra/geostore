@@ -1,0 +1,112 @@
+[AQAD]
+#1 find largest sum contiguous subarray.
+#2 find kth largest sum contiguous subarray.
+
+[Cloud]
+rc4
+
+[Internet]
+http://www.swami-krishnananda.org/brdup/brhad_recap-d.html
+http://www.swami-krishnananda.org/bhagavata/bhagavata_7.html
+http://www.swami-krishnananda.org/realis/realis_8e.html
+http://www.swami-krishnananda.org/panch/panch_15.html
+http://www.swami-krishnananda.org/song/song_7.html
+http://www.swami-krishnananda.org/mundak/mun_2-2.html
+http://www.swami-krishnananda.org/mundak/mun_2-2.html
+http://www.swami-krishnananda.org/chhand/ch_1.html
+http://www.swami-krishnananda.org/disc_scriptures.html?bhu
+http://www.bharatadesam.com/spiritual/vivekachudamani6.php
+http://www.sankaracharya.org/brihadaranyaka_upanishad_2.php?bhu
+http://www.sivanandaonline.org/public_html/?cmd=displaysection&section_id=589&parent=353&format=html
+http://agniveer.com/3630/woman-sunrise/
+http://agniveer.com/3809/mother-woman/
+http://agniveer.com/3610/woman-hallmark-of-true-valor/
+http://agniveer.com/1291/women-in-vedas/
+http://www.himalayanacademy.com/resources/books/virtue/ChapterOne.html
+http://www.himalayanacademy.com/resources/books/weaver/eng_25.htm
+http://n1b-algo.blogspot.in/
+http://placementsindia.blogspot.in/2007/09/yahoo-interview-questions.html
+http://www.bigriddles.com/riddle/the-millers-daughter
+http://graphics.stanford.edu/~seander/bithacks.html#IntegerLogObvious
+http://www.azillionmonkeys.com/qed/hash.html
+http://community.topcoder.com/tc?module=Static&d1=tutorials&d2=binaryIndexedTrees
+http://en.proverbia.net/citastema.asp?tematica=1276&page=86
+http://www.cs.washington.edu/homes/mernst/advice/
+http://www.ieee.org/web/conferences/callforpapers/index.html?var1=cfp_filter_date&var2=15552000000&var3=&loc=400$410$1
+http://www.yoga-age.com/modern/vairagya/vairagya5.html
+http://being-animesh.blogspot.in/2012/05/placement-times.html?spref=fb
+http://www.ocf.berkeley.edu/~wwu/riddles/easy.shtml#arabSheikhCamels
+http://www.puzzlersworld.com/sequenceriddles/start.php
+
+
+
+http://www.computer.org/portal/web/peerreviewjournals/author
+http://www.computer.org/portal/web/tse/author
+http://www.computer.org/portal/web/tsc
+http://www.ieee.org/publications_standards/publications/authors/authors_journals.html
+
+http://www.swami-krishnananda.org/ans/ans_33.html
+http://www.swami-krishnananda.org/awake/awake_1.html
+http://www.swami-krishnananda.org/pro/pro_1213a-1.html
+http://tr4n2uil.wordpress.com/
+http://java.sun.com/developer/technicalArticles/Networking/Webserver/WebServercode.html
+http://www.ug.cs.sunysb.edu/~wengh/
+http://stackoverflow.com/questions/4300238/how-do-i-link-and-built-a-dynamic-link-library-correctly
+http://www.yolinux.com/TUTORIALS/LibraryArchives-StaticAndDynamic.html
+http://ehuss.net/shared/
+http://www.opussoftware.com/tutorial/TutMakefile.htm
+http://www.delorie.com/djgpp/doc/ug/larger/makefiles.html
+http://mrbook.org/tutorials/make/
+http://community.topcoder.com/tc?module=Static&d1=tutorials&d2=importance_of_algorithms
+http://wiki.alwaysdata.com/wiki/D%C3%A9ployer_une_application_Django
+
+
+[libuc]
+flex
+*libcurl-devel
+*mysql-devel
+*sqlite-devel
+
+[kestrel]
+create node 0 person
+create node 1 buckets
+on delete cascade : storage_file, storage_directory, graph_node
+
+[geostore]
+@csrf_exempt
+
+http://www.b-list.org/weblog/2006/sep/02/django-tips-user-registration/
+http://ltslashgt.com/2007/07/02/gmail-and-django/
+http://stackoverflow.com/questions/7065164/how-to-make-an-unaware-datetime-timezone-aware-in-python
+http://www.linuxtopia.org/online_books/programming_books/python_programming/python_ch15s07.html
+
+http://stackoverflow.com/questions/5871730/need-a-minimal-django-file-upload-example
+https://docs.djangoproject.com/en/dev/topics/http/file-uploads/?from=olddocs
+http://stackoverflow.com/questions/3213060/django-download-file-not-working/3213548#3213548
+
+http://etherpad.osuosl.org/adjSHwnBLY
+http://swami-krishnananda.org/poet/poet_08.html
+
+
+
+
+
+
+update batches set `year`=(case `course` when 'btech' then `year`+4 when 'idd' then `year`+5 when 'mtech' then `year`+2 else `year` end)
+update students set batchid = (select parent from cirrusbolt.chains where chainid=stdid);
+
+update chains set grlevel=-2, authorize='gradd:remove:edit:grlist' where chainid in (select resumes from batches)
+update chains set grlevel=-2, authorize='edit:add:remove:grlist:grinfo' where chainid in (13,14,15,17,31,33,34,35)
+
+update chains set grroot=parent, grlevel=-1 where chainid in (select dirid from directories where dirid>20)
+
+only batch handles directory
+
+news
+tpo
+events
+info
+files
+sites
+
+depts

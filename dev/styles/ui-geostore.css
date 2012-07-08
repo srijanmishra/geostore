@@ -6,3 +6,6 @@
 #login { margin: 25px auto 0; padding-left: 3px; width: 300px; }
 #reset { margin: 25px auto; padding-left: 3px; width: 300px; }
 #register { margin: 25px auto; padding-left: 3px; width: 500px; }
+
+/* table-list styles */
+.table-list { border: solid 1px #555; }
