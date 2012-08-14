@@ -24,7 +24,7 @@ class Person(Node):
 		self.activation_key = sha.new(salt + self.user.username).hexdigest()
 		self.key_expires = datetime.datetime.today().replace(tzinfo = pytz.UTC) + datetime.timedelta(settings.PEOPLE_VERIFY_EXPIRY)
 		self.save()
-		self.user.is_active = false
+		self.user.is_active = False
 		self.user.save()
 		email = EmailMessage(settings.PEOPLE_VERIFY_SUBJECT, 
 					settings.PEOPLE_VERIFY_BODY % { 'username' : self.user.username, 'verify' : self.activation_key }, to=[ self.user.email ])
